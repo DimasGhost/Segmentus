@@ -4,15 +4,14 @@ using Android.OS;
 
 namespace Segmentus
 {
-    [Activity(Label = "Segmentus", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "Segmentus", MainLauncher = true, Icon = "@drawable/icon",
+        Theme = "@android:style/Theme.Black.NoTitleBar.Fullscreen")]
     public class MainActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
-            // Set our view from the "main" layout resource
-            // SetContentView (Resource.Layout.Main);
+            SetContentView(Resource.Layout.Main);
         }
     }
 }
