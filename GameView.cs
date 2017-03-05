@@ -20,7 +20,6 @@ namespace Segmentus
 
         protected override void OnDraw(Canvas canvas)
         {
-
         }
     }
 }
