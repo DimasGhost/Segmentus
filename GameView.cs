@@ -8,6 +8,7 @@ using Android.Views;
 
 namespace Segmentus
 {
+    //Singleton
     class GameView : View
     {
         public static GameView Instance {get; private set;}
