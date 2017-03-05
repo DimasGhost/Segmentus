@@ -10,19 +10,14 @@ namespace Segmentus
 {
     class GameView : View
     {
-        public static GameView mainInstance;
+        public static GameView Instance {get; private set;}
+
         public GameView(Context context, IAttributeSet attrs) : base(context, attrs, 0)
         {
-            mainInstance = this;
-            Initialize();
+            Instance = this;
         }
 
         protected override void OnDraw(Canvas canvas)
-        {
-            canvas.DrawColor(new Color(255, 255, 255));
-        }
-
-        void Initialize()
         {
 
         }
