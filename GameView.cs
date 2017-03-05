@@ -10,8 +10,10 @@ namespace Segmentus
 {
     class GameView : View
     {
+        public static GameView mainInstance;
         public GameView(Context context, IAttributeSet attrs) : base(context, attrs, 0)
         {
+            mainInstance = this;
             Initialize();
         }
 
