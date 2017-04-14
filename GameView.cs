@@ -1,6 +1,5 @@
-using System;
+using System.Collections.Generic;
 
-using Android.Animation;
 using Android.Content;
 using Android.Graphics;
 using Android.Util;
@@ -12,6 +11,7 @@ namespace Segmentus
     class GameView : View
     {
         public static GameView Instance {get; private set;}
+        public static List<Scene> scenes;
 
         public GameView(Context context, IAttributeSet attrs) : base(context, attrs, 0)
         {
