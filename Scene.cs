@@ -4,6 +4,6 @@ namespace Segmentus
 {
     abstract class Scene
     {
-        abstract public void OnDraw(Canvas canvas);
+        abstract static public void OnDraw(Canvas canvas);
     }
 }
