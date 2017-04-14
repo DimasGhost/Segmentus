@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Android.Content;
 using Android.Graphics;
 using Android.Util;
@@ -13,7 +11,7 @@ namespace Segmentus
         public static GameView Instance {get; private set;}
 
         public delegate void DrawDelegate(Canvas canvas);
-        public event DrawDelegate DrawEvent;
+        public static event DrawDelegate DrawEvent;
 
         public GameView(Context context, IAttributeSet attrs) : base(context, attrs, 0)
         {
@@ -22,8 +20,7 @@ namespace Segmentus
 
         protected override void OnDraw(Canvas canvas)
         {
-            if (DrawEvent != null)
-                DrawEvent(canvas);
+            DrawEvent?.Invoke(canvas);
         }
     }
 }
