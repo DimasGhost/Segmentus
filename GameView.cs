@@ -11,7 +11,9 @@ namespace Segmentus
     class GameView : View
     {
         public static GameView Instance {get; private set;}
-        public static List<Scene> scenes;
+
+        public delegate void DrawDelegate(Canvas canvas);
+        public event DrawDelegate DrawEvent;
 
         public GameView(Context context, IAttributeSet attrs) : base(context, attrs, 0)
         {
@@ -20,6 +22,8 @@ namespace Segmentus
 
         protected override void OnDraw(Canvas canvas)
         {
+            if (DrawEvent != null)
+                DrawEvent(canvas);
         }
     }
 }
