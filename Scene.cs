@@ -7,7 +7,7 @@ namespace Segmentus
     enum Side {Left, Right};
     
     //Singleton
-    class Scene
+    abstract class Scene
     {
         const int SwitchDuration = 1000;
 
@@ -20,9 +20,9 @@ namespace Segmentus
             Instance = this;
         }
 
-        public void Draw(Canvas canvas) { }
+        public abstract void Draw(Canvas canvas);
 
-        public virtual void OnShow() { }
+        public abstract void OnShow();
 
         public void Show(Side fromSide)
         {
