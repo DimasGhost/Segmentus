@@ -7,26 +7,22 @@ namespace Segmentus
     enum Side {Left, Right};
     
     //Singleton
-    abstract class Scene
+    abstract class Scene : DrawablePart
     {
         const int SwitchDuration = 1000;
 
         public static Scene Instance { get; private set; }
 
-        public Pivot pivot = new Pivot(parent : GameView.pivot);
-
-        public Scene()
+        public Scene() : base(GameView.pivot)
         {
             Instance = this;
         }
-
-        public abstract void Draw(Canvas canvas);
 
         public abstract void OnShow();
 
         public void Show(Side fromSide)
         {
-            GameView.DrawEvent += Draw;
+            GameView.DrawEvent += OnDraw;
             float fromX = (fromSide == Side.Left) ? -GameView.CanonWidth : GameView.CanonWidth;
             pivot.x = fromX;
             ValueAnimator animator = ValueAnimator.OfFloat(fromX, 0);
@@ -45,7 +41,7 @@ namespace Segmentus
             animator.SetDuration(SwitchDuration);
             animator.SetInterpolator(new DecelerateInterpolator());
             animator.Update += (sender, e) => pivot.x = (float)e.Animation.AnimatedValue;
-            animator.AnimationEnd += (sender, e) => GameView.DrawEvent -= Draw;
+            animator.AnimationEnd += (sender, e) => GameView.DrawEvent -= OnDraw;
             animator.Start();
         }
     }
