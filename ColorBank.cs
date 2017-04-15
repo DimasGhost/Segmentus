@@ -9,5 +9,7 @@ namespace Segmentus
         static public Color blue = new Color(213, 225, 234);
         static public Color red = new Color(238, 99, 82);
         static public Color yellow = new Color(255, 209, 81);
+
+        static public Color background = white;
     }
 }
