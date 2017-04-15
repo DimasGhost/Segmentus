@@ -27,9 +27,9 @@ namespace Segmentus
         {
             Instance = this;
 
-            xCenter = this.Width / 2;
-            yCenter = this.Height / 2;
-            scaleFactor = Math.Min(this.Width / CanonWidth, this.Height / CanonHeight);
+            xCenter = Width / 2;
+            yCenter = Height / 2;
+            scaleFactor = Math.Min(Width / CanonWidth, Height / CanonHeight);
             rootPivot = new Pivot();
         }
 
