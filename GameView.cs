@@ -15,8 +15,8 @@ namespace Segmentus
         public delegate void DrawDelegate(Canvas canvas);
         public static event DrawDelegate DrawEvent;
 
-        public const int canonWidth = 720;
-        public const int canonHeight = 1280;
+        public const int CanonWidth = 720;
+        public const int CanonHeight = 1280;
 
         public static int xCenter, yCenter;
         public static float scaleFactor;
@@ -29,7 +29,7 @@ namespace Segmentus
 
             xCenter = this.Width / 2;
             yCenter = this.Height / 2;
-            scaleFactor = Math.Min(this.Width / canonWidth, this.Height / canonHeight);
+            scaleFactor = Math.Min(this.Width / CanonWidth, this.Height / CanonHeight);
             pivot = new Pivot();
         }
 
