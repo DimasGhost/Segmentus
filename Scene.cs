@@ -13,7 +13,7 @@ namespace Segmentus
 
         public static Scene Instance { get; private set; }
 
-        public Scene() : base(GameView.pivot)
+        public Scene() : base(GameView.rootPivot)
         {
             Instance = this;
         }

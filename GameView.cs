@@ -21,7 +21,7 @@ namespace Segmentus
         public static int xCenter, yCenter;
         public static float scaleFactor;
 
-        public static Pivot pivot;
+        public static Pivot rootPivot;
 
         public GameView(Context context, IAttributeSet attrs) : base(context, attrs, 0)
         {
@@ -30,7 +30,7 @@ namespace Segmentus
             xCenter = this.Width / 2;
             yCenter = this.Height / 2;
             scaleFactor = Math.Min(this.Width / CanonWidth, this.Height / CanonHeight);
-            pivot = new Pivot();
+            rootPivot = new Pivot();
         }
 
         protected override void OnDraw(Canvas canvas)
