@@ -24,6 +24,7 @@ namespace Segmentus
         {
             GameView.DrawEvent += OnDraw;
             float fromX = (fromSide == Side.Left) ? -GameView.CanonWidth : GameView.CanonWidth;
+            fromX *= GameView.scaleFactor;
             pivot.x = fromX;
             ValueAnimator animator = ValueAnimator.OfFloat(fromX, 0);
             animator.SetDuration(SwitchDuration);
@@ -36,6 +37,7 @@ namespace Segmentus
         protected void Hide(Side toSide)
         {
             float toX = (toSide == Side.Left) ? -GameView.CanonWidth : GameView.CanonWidth;
+            toX *= GameView.scaleFactor;
             pivot.x = toX;
             ValueAnimator animator = ValueAnimator.OfFloat(0, toX);
             animator.SetDuration(SwitchDuration);
