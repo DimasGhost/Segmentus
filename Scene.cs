@@ -1,6 +1,5 @@
 using Android.Views.Animations;
 using Android.Animation;
-using Android.Graphics;
 
 namespace Segmentus
 {
@@ -38,7 +37,6 @@ namespace Segmentus
         {
             float toX = (toSide == Side.Left) ? -GameView.CanonWidth : GameView.CanonWidth;
             toX *= GameView.scaleFactor;
-            pivot.x = toX;
             ValueAnimator animator = ValueAnimator.OfFloat(0, toX);
             animator.SetDuration(SwitchDuration);
             animator.SetInterpolator(new DecelerateInterpolator());

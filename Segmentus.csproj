@@ -52,11 +52,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ColorBank.cs" />
-    <Compile Include="Drawable.cs" />
+    <Compile Include="DrawablePart.cs" />
     <Compile Include="GameView.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Pivot.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scene.cs" />
+    <Compile Include="Scenes\LogoScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
