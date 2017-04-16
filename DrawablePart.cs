@@ -11,7 +11,7 @@ namespace Segmentus
             pivot = new Pivot(x, y, parentPivot);
         }
 
-        public abstract void Draw(Canvas canvas);
+        protected abstract void Draw(Canvas canvas);
 
         public void OnDraw(Canvas canvas)
         {
