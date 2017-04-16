@@ -6,9 +6,9 @@ namespace Segmentus
     {
         public Pivot pivot;
 
-        public DrawablePart(Pivot parentPivot)
+        public DrawablePart(Pivot parentPivot, float x = 0, float y = 0)
         {
-            pivot = new Pivot(parent: parentPivot);
+            pivot = new Pivot(x, y, parentPivot);
         }
 
         public abstract void Draw(Canvas canvas);

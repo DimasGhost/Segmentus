@@ -19,7 +19,7 @@ namespace Segmentus
             }
         }
 
-        public Pivot(int x = 0, int y = 0, Pivot parent = null)
+        public Pivot(float x = 0, float y = 0, Pivot parent = null)
         {
             this.x = x;
             this.y = y;
