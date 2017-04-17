@@ -11,9 +11,8 @@ namespace Segmentus
     class GameView : View
     {
         public static GameView Instance {get; private set;}
-
-        public delegate void DrawDelegate(Canvas canvas);
-        public static event DrawDelegate DrawEvent;
+        
+        public static event Action<Canvas> DrawEvent;
 
         public const int CanonWidth = 720;
         public const int CanonHeight = 1280;
