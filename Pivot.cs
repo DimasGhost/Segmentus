@@ -4,20 +4,8 @@ namespace Segmentus
     {
         public Pivot parent;
         public float x, y;
-        public float absX
-        {
-            get
-            {
-                return (parent != null) ? parent.absX + x: x;
-            }
-        }
-        public float absY
-        {
-            get
-            {
-                return (parent != null) ? parent.absY + y : y;
-            }
-        }
+        public float AbsX => (parent != null) ? parent.AbsX + x: x;
+        public float AbsY => (parent != null) ? parent.AbsY + x : x;
 
         public Pivot(float x = 0, float y = 0, Pivot parent = null)
         {
