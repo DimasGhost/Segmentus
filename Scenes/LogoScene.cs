@@ -2,7 +2,7 @@ using Android.Graphics;
 
 namespace Segmentus.Scenes
 {
-    static class LogoScene
+    class LogoScene
     {
         static public void Show()
         {

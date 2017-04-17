@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BitmapContent.cs" />
     <Compile Include="ColorBank.cs" />
     <Compile Include="DrawablePart.cs" />
     <Compile Include="GameView.cs" />
