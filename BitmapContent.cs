@@ -13,8 +13,8 @@ namespace Segmentus
 
         protected override void Draw(Canvas canvas)
         {
-            float xLeft = pivot.x - bitmap.Width / 2;
-            float yTop = pivot.y - bitmap.Height / 2;
+            float xLeft = pivot.X - bitmap.Width / 2;
+            float yTop = pivot.Y - bitmap.Height / 2;
             canvas.DrawBitmap(bitmap, xLeft, yTop, null);
         }
     }

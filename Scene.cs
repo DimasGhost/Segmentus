@@ -24,11 +24,11 @@ namespace Segmentus
             GameView.DrawEvent += OnDraw;
             float fromX = (fromSide == Side.Left) ? -GameView.CanonWidth : GameView.CanonWidth;
             fromX *= GameView.scaleFactor;
-            pivot.x = fromX;
+            pivot.X = fromX;
             ValueAnimator animator = ValueAnimator.OfFloat(fromX, 0);
             animator.SetDuration(SwitchDuration);
             animator.SetInterpolator(new DecelerateInterpolator());
-            animator.Update += (sender, e) => pivot.x = (float)e.Animation.AnimatedValue;
+            animator.Update += (sender, e) => pivot.X = (float)e.Animation.AnimatedValue;
             animator.AnimationEnd += (sender, e) => OnShow();
             animator.Start();
         }
@@ -40,7 +40,7 @@ namespace Segmentus
             ValueAnimator animator = ValueAnimator.OfFloat(0, toX);
             animator.SetDuration(SwitchDuration);
             animator.SetInterpolator(new DecelerateInterpolator());
-            animator.Update += (sender, e) => pivot.x = (float)e.Animation.AnimatedValue;
+            animator.Update += (sender, e) => pivot.X = (float)e.Animation.AnimatedValue;
             animator.AnimationEnd += (sender, e) => GameView.DrawEvent -= OnDraw;
             animator.Start();
         }
