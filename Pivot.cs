@@ -4,8 +4,8 @@ namespace Segmentus
     {
         public Pivot parent;
         public float x, y;
-        public float AbsX => (parent != null) ? parent.AbsX + x: x;
-        public float AbsY => (parent != null) ? parent.AbsY + x : x;
+        public float AbsX => (parent != null) ? parent.AbsX + x : x;
+        public float AbsY => (parent != null) ? parent.AbsY + y : y;
 
         public Pivot(float x = 0, float y = 0, Pivot parent = null)
         {
