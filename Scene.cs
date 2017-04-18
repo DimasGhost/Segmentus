@@ -8,7 +8,8 @@ namespace Segmentus
     //Singleton
     abstract class Scene : DrawablePart
     {
-        const int SwitchDuration = 1000;
+        const int SwitchDuration = 750;
+        const float SwitchEasingFactor = 2.2f;
 
         public static Scene Instance { get; private set; }
 
@@ -17,7 +18,7 @@ namespace Segmentus
             Instance = this;
         }
 
-        public abstract void OnShow();
+        protected abstract void OnShow();
 
         public void Show(Side fromSide)
         {
@@ -27,7 +28,7 @@ namespace Segmentus
             pivot.X = fromX;
             ValueAnimator animator = ValueAnimator.OfFloat(fromX, 0);
             animator.SetDuration(SwitchDuration);
-            animator.SetInterpolator(new DecelerateInterpolator());
+            animator.SetInterpolator(new DecelerateInterpolator(SwitchEasingFactor));
             animator.Update += (sender, e) => pivot.X = (float)e.Animation.AnimatedValue;
             animator.AnimationEnd += (sender, e) => OnShow();
             animator.Start();
@@ -39,7 +40,7 @@ namespace Segmentus
             toX *= GameView.scaleFactor;
             ValueAnimator animator = ValueAnimator.OfFloat(0, toX);
             animator.SetDuration(SwitchDuration);
-            animator.SetInterpolator(new DecelerateInterpolator());
+            animator.SetInterpolator(new DecelerateInterpolator(SwitchEasingFactor));
             animator.Update += (sender, e) => pivot.X = (float)e.Animation.AnimatedValue;
             animator.AnimationEnd += (sender, e) => GameView.DrawEvent -= OnDraw;
             animator.Start();

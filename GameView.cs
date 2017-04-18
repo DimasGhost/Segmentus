@@ -4,6 +4,7 @@ using Android.Content;
 using Android.Graphics;
 using Android.Util;
 using Android.Views;
+using Android.App;
 
 namespace Segmentus
 {
@@ -24,11 +25,12 @@ namespace Segmentus
 
         public GameView(Context context, IAttributeSet attrs) : base(context, attrs, 0)
         {
+            int w = Resources.DisplayMetrics.WidthPixels;
+            int h = Resources.DisplayMetrics.HeightPixels;
             Instance = this;
-
-            xCenter = Width / 2;
-            yCenter = Height / 2;
-            scaleFactor = Math.Min(Width / CanonWidth, Height / CanonHeight);
+            xCenter = w / 2;
+            yCenter = h / 2;
+            scaleFactor = Math.Min((float)w / CanonWidth, (float)h / CanonHeight);
             rootPivot = new Pivot();
         }
 

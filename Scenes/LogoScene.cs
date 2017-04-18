@@ -1,21 +1,24 @@
 using Android.Graphics;
+using Android.Util;
 
 namespace Segmentus.Scenes
 {
-    class LogoScene
+    class LogoScene : Scene
     {
-        static public void Show()
+        BitmapContent fcsLogo;
+        public LogoScene() : base()
         {
-            GameView.DrawEvent += OnDraw;
+            int fcsDiameter = (int)(0.46 * GameView.CanonWidth * GameView.scaleFactor);
+            Bitmap fcsBitmap = BitmapLoader.LoadAndResize(Resource.Drawable.fcs, 
+                fcsDiameter, fcsDiameter);
+            fcsLogo = new BitmapContent(fcsBitmap, pivot, 0, 0);
         }
 
-        static void OnDraw(Canvas canvas) {
+        protected override void OnShow() { }
 
-        }
-
-        static public void Hide()
+        protected override void Draw(Canvas canvas)
         {
-            GameView.DrawEvent -= OnDraw;
+            fcsLogo.OnDraw(canvas);
         }
     }
 }

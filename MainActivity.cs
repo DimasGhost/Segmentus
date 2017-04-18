@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.OS;
+using Segmentus.Scenes;
 
 namespace Segmentus
 {
@@ -11,6 +12,7 @@ namespace Segmentus
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
+            (new LogoScene()).Show(Side.Right);
         }
     }
 }
