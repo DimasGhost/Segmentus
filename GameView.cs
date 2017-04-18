@@ -4,6 +4,7 @@ using Android.Content;
 using Android.Graphics;
 using Android.Util;
 using Android.Views;
+using Android.Content.Res;
 using Android.App;
 
 namespace Segmentus
@@ -11,26 +12,29 @@ namespace Segmentus
     //Singleton
     class GameView : View
     {
-        public static GameView Instance {get; private set;}
-        
-        public static event Action<Canvas> DrawEvent;
+        public static GameView Instance { get; set; }
 
         public const int CanonWidth = 720;
         public const int CanonHeight = 1280;
-
         public static int xCenter, yCenter;
         public static float scaleFactor;
+        
+        public event Action<Canvas> DrawEvent;
+        public Pivot rootPivot;
 
-        public static Pivot rootPivot;
-
-        public GameView(Context context, IAttributeSet attrs) : base(context, attrs, 0)
+        static GameView()
         {
-            int w = Resources.DisplayMetrics.WidthPixels;
-            int h = Resources.DisplayMetrics.HeightPixels;
-            Instance = this;
+            Resources res = Application.Context.Resources;
+            int w = res.DisplayMetrics.WidthPixels;
+            int h = res.DisplayMetrics.HeightPixels;
             xCenter = w / 2;
             yCenter = h / 2;
             scaleFactor = Math.Min((float)w / CanonWidth, (float)h / CanonHeight);
+        }
+
+        public GameView(Context context, IAttributeSet attrs) : base(context, attrs, 0)
+        {
+            Instance = this;
             rootPivot = new Pivot();
         }
 

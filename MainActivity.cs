@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿using System;
+using Android.App;
 using Android.OS;
 using Segmentus.Scenes;
 
@@ -12,7 +13,32 @@ namespace Segmentus
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
-            (new LogoScene()).Show(Side.Right);
+            InitScenes();
+            LogoScene.Instance.Show(Side.Right);
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+        }
+
+        void InitScenes()
+        {
+            LogoScene.Instance = new LogoScene();
+        }
+
+        void RemoveScenes()
+        {
+            LogoScene.Instance = null;
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            RemoveScenes();
+            GameView.Instance = null;
+            GC.Collect();
         }
     }
 }

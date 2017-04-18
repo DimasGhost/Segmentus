@@ -3,9 +3,13 @@ using Android.Util;
 
 namespace Segmentus.Scenes
 {
+    // Singleton
     class LogoScene : Scene
     {
+        public static LogoScene Instance { get; set; }
+
         BitmapContent fcsLogo;
+
         public LogoScene() : base()
         {
             int fcsDiameter = (int)(0.46 * GameView.CanonWidth * GameView.scaleFactor);
