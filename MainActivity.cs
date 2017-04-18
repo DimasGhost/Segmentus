@@ -17,12 +17,6 @@ namespace Segmentus
             LogoScene.Instance.Show(Side.Right);
         }
 
-        protected override void OnResume()
-        {
-            base.OnResume();
-
-        }
-
         void InitScenes()
         {
             LogoScene.Instance = new LogoScene();
