@@ -31,8 +31,8 @@ namespace Segmentus
 
         public Pivot(float x = 0, float y = 0, Pivot parent = null)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
             this.parent = parent;
         }
     }
