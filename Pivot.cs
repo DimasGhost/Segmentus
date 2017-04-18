@@ -6,21 +6,23 @@ namespace Segmentus
     {
         public Pivot parent;
         public event Action Changed;
+
+        float _x, _y;
         public float X
         {
-            get { return X; }
+            get { return _x; }
             set
             {
-                X = value;
+                _x = value;
                 Changed?.Invoke();
             }
         }
         public float Y
         {
-            get { return Y; }
+            get { return _y; }
             set
             {
-                Y = value;
+                _y = value;
                 Changed?.Invoke();
             }
         }
