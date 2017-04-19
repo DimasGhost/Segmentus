@@ -16,8 +16,8 @@ namespace Segmentus
 
         void RecountLeftTop()
         {
-            xLeft = (int)(pivot.X - bitmap.Width / 2);
-            yTop = (int)(pivot.Y - bitmap.Height / 2);
+            xLeft = -bitmap.Width / 2;
+            yTop = -bitmap.Height / 2;
         }
 
         protected override void Draw(Canvas canvas)

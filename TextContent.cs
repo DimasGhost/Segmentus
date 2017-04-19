@@ -35,8 +35,8 @@ namespace Segmentus
             Rect r = new Rect();
             paint.TextSize = size;
             paint.GetTextBounds(text, 0, text.Length, r);
-            originX = (int)(pivot.X - r.Width() / 2 - r.Left / 2);
-            originY = (int)(pivot.Y + r.Height() / 2 - r.Bottom / 2);
+            originX = -r.Width() / 2 - r.Left / 2;
+            originY = r.Height() / 2 - r.Bottom / 2;
         }
 
         protected override void Draw(Canvas canvas)
