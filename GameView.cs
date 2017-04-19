@@ -53,7 +53,7 @@ namespace Segmentus
 
         protected override void OnDraw(Canvas canvas)
         {
-            canvas.DrawColor(ColorBank.background);
+            canvas.DrawColor(ColorBank.GetColor(ColorBank.Background));
             canvas.Save();
             canvas.Translate(xCenter, yCenter);
             DrawEvent?.Invoke(canvas);
