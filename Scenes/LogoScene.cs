@@ -1,5 +1,4 @@
 using Android.Graphics;
-using Android.Util;
 
 namespace Segmentus.Scenes
 {
@@ -9,20 +8,42 @@ namespace Segmentus.Scenes
         public static LogoScene Instance { get; set; }
 
         BitmapContent fcsLogo;
+        BitmapContent hseLogo;
+        TextContent supby;
+        TextContent fcs;
+        TextContent hse;
 
         public LogoScene() : base()
         {
-            int fcsDiameter = (int)(0.46 * GameView.CanonWidth * GameView.scaleFactor);
+            int fcsDiameter = (int)(330 * GameView.scaleFactor);
             Bitmap fcsBitmap = BitmapLoader.LoadAndResize(Resource.Drawable.fcs, 
                 fcsDiameter, fcsDiameter);
-            fcsLogo = new BitmapContent(fcsBitmap, pivot, 0, 0);
+            fcsLogo = new BitmapContent(fcsBitmap, pivot, 0, 80 * GameView.scaleFactor);
+
+            int hseDiameter = (int)(128 * GameView.scaleFactor);
+            Bitmap hseBitmap = BitmapLoader.LoadAndResize(Resource.Drawable.hse,
+                hseDiameter, hseDiameter);
+            hseLogo = new BitmapContent(hseBitmap, pivot, 0, 350 * GameView.scaleFactor);
+
+            supby = new TextContent("SUPPORTED BY", ColorBank.Red,
+                70 * GameView.scaleFactor, pivot, 0, -330 * GameView.scaleFactor);
+
+            fcs = new TextContent("THE FACULTY OF COMPUTER SCIENCE", ColorBank.Red,
+                38 * GameView.scaleFactor, pivot, 0, -230 * GameView.scaleFactor);
+
+            hse = new TextContent("HIGHER SCHOOL OF ECONOMICS", ColorBank.Red,
+                38 * GameView.scaleFactor, pivot, 0, -150 * GameView.scaleFactor);
         }
 
         protected override void OnShow() { }
 
         protected override void Draw(Canvas canvas)
         {
+            supby.OnDraw(canvas);
+            fcs.OnDraw(canvas);
+            hse.OnDraw(canvas);
             fcsLogo.OnDraw(canvas);
+            hseLogo.OnDraw(canvas);
         }
     }
 }
