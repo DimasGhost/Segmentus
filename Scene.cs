@@ -10,13 +10,13 @@ namespace Segmentus
         const int SwitchDuration = 750;
         const float SwitchEasingFactor = 2.2f;
 
-        public Scene() : base(GameView.Instance.rootPivot) {}
+        public Scene() : base(GameView.RootPivot) {}
 
         protected abstract void OnShow();
 
         public void Show(Side fromSide)
         {
-            GameView.Instance.DrawEvent += OnDraw;
+            GameView.AddToDrawEvent(OnDraw);
             float fromX = (fromSide == Side.Left) ? -GameView.CanonWidth : GameView.CanonWidth;
             fromX *= GameView.scaleFactor;
             pivot.X = fromX;
@@ -36,7 +36,7 @@ namespace Segmentus
             animator.SetDuration(SwitchDuration);
             animator.SetInterpolator(new DecelerateInterpolator(SwitchEasingFactor));
             animator.Update += (sender, e) => pivot.X = (float)e.Animation.AnimatedValue;
-            animator.AnimationEnd += (sender, e) => GameView.Instance.DrawEvent -= OnDraw;
+            animator.AnimationEnd += (sender, e) => GameView.RemoveFromDrawEvent(OnDraw);
             animator.Start();
         }
     }
