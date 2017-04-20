@@ -1,14 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.Animation;
 
 namespace Segmentus
@@ -25,5 +15,12 @@ namespace Segmentus
             v.AnimationEnd += (e, sender) => animators.Remove(v);
             return v;
         } 
+
+        static public void CancelAllAnimations()
+        {
+            foreach (ValueAnimator v in animators)
+                v.Cancel();
+            animators.Clear();
+        }
     }
 }

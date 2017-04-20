@@ -30,6 +30,7 @@ namespace Segmentus
         protected override void OnDestroy()
         {
             base.OnDestroy();
+            AnimatorFactory.CancelAllAnimations();
             RemoveScenes();
             GameView.Instance = null;
             GC.Collect();

@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimatorFactory.cs" />
     <Compile Include="BitmapContent.cs" />
     <Compile Include="BitmapLoader.cs" />
     <Compile Include="ColorBank.cs" />

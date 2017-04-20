@@ -19,21 +19,8 @@ namespace Segmentus
         public static int xCenter, yCenter;
         public static float scaleFactor;
         
-        event Action<Canvas> DrawEvent;
-        Pivot rootPivot;
-        public static Pivot RootPivot => (Instance != null) ? Instance.rootPivot : null;
-
-        public static void AddToDrawEvent(Action<Canvas> action)
-        {
-            if (Instance != null)
-                Instance.DrawEvent += action;
-        }
-
-        public static void RemoveFromDrawEvent(Action<Canvas> action)
-        {
-            if (Instance != null)
-                Instance.DrawEvent -= action;
-        }
+        public event Action<Canvas> DrawEvent;
+        public Pivot rootPivot;
 
         static GameView()
         {

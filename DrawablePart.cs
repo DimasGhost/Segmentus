@@ -22,6 +22,6 @@ namespace Segmentus
             canvas.Restore();
         }
 
-        protected void OnAppearanceChanged() => GameView.Instance?.Invalidate();
+        protected void OnAppearanceChanged() => GameView.Instance.Invalidate();
     }
 }
