@@ -20,24 +20,22 @@ namespace Segmentus
             float fromX = (fromSide == Side.Left) ? -GameView.CanonWidth : GameView.CanonWidth;
             fromX *= GameView.scaleFactor;
             pivot.X = fromX;
-            ValueAnimator animator = ValueAnimator.OfFloat(fromX, 0);
-            animator.SetDuration(SwitchDuration);
-            animator.SetInterpolator(new DecelerateInterpolator(SwitchEasingFactor));
-            animator.Update += (sender, e) => pivot.X = (float)e.Animation.AnimatedValue;
-            animator.AnimationEnd += (sender, e) => OnShow();
-            animator.Start();
+            ValueAnimator anim = AnimatorFactory.CreateAnimator(fromX, 0, SwitchDuration);
+            anim.SetInterpolator(new DecelerateInterpolator(SwitchEasingFactor));
+            anim.Update += (sender, e) => pivot.X = (float)e.Animation.AnimatedValue;
+            anim.AnimationEnd += (sender, e) => OnShow();
+            anim.Start();
         }
 
         protected void Hide(Side toSide)
         {
             float toX = (toSide == Side.Left) ? -GameView.CanonWidth : GameView.CanonWidth;
             toX *= GameView.scaleFactor;
-            ValueAnimator animator = ValueAnimator.OfFloat(0, toX);
-            animator.SetDuration(SwitchDuration);
-            animator.SetInterpolator(new DecelerateInterpolator(SwitchEasingFactor));
-            animator.Update += (sender, e) => pivot.X = (float)e.Animation.AnimatedValue;
-            animator.AnimationEnd += (sender, e) => GameView.RemoveFromDrawEvent(OnDraw);
-            animator.Start();
+            ValueAnimator anim = AnimatorFactory.CreateAnimator(0, toX, SwitchDuration);
+            anim.SetInterpolator(new DecelerateInterpolator(SwitchEasingFactor));
+            anim.Update += (sender, e) => pivot.X = (float)e.Animation.AnimatedValue;
+            anim.AnimationEnd += (sender, e) => GameView.RemoveFromDrawEvent(OnDraw);
+            anim.Start();
         }
     }
 }
