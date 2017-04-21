@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using Android.Animation;
+using Android.OS;
 
 namespace Segmentus
 {
     static class AnimatorFactory
     {
-        static HashSet<ValueAnimator> animators;
+        static HashSet<ValueAnimator> animators = new HashSet<ValueAnimator>();
 
         static public ValueAnimator CreateAnimator(float from, float to, int duration)
         {
