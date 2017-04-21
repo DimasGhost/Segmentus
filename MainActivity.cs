@@ -2,6 +2,7 @@
 using Android.App;
 using Android.OS;
 using Segmentus.Scenes;
+using Android.Animation;
 
 namespace Segmentus
 {
@@ -14,7 +15,9 @@ namespace Segmentus
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
             InitScenes();
-            LogoScene.Instance.Show(Side.Right);
+            ValueAnimator delayAnim = AnimatorFactory.CreateAnimator(0, 0, 500);
+            delayAnim.AnimationEnd += (sender, e) => LogoScene.Instance.Show(Side.Right);
+            delayAnim.Start();
         }
 
         void InitScenes()
