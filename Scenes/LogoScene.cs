@@ -9,9 +9,9 @@ namespace Segmentus.Scenes
 
         BitmapContent fcsLogo;
         BitmapContent hseLogo;
-        TextContent supby;
-        TextContent fcs;
-        TextContent hse;
+        TextContent supbyText;
+        TextContent fcsText;
+        TextContent hseText;
 
         public LogoScene() : base()
         {
@@ -25,13 +25,13 @@ namespace Segmentus.Scenes
                 hseDiameter, hseDiameter);
             hseLogo = new BitmapContent(hseBitmap, pivot, 0, 350 * GameView.scaleFactor);
 
-            supby = new TextContent("SUPPORTED BY", ColorBank.Red,
+            supbyText = new TextContent("SUPPORTED BY", ColorBank.Red,
                 70 * GameView.scaleFactor, pivot, 0, -330 * GameView.scaleFactor);
 
-            fcs = new TextContent("THE FACULTY OF COMPUTER SCIENCE", ColorBank.Red,
+            fcsText = new TextContent("THE FACULTY OF COMPUTER SCIENCE", ColorBank.Red,
                 38 * GameView.scaleFactor, pivot, 0, -230 * GameView.scaleFactor);
 
-            hse = new TextContent("HIGHER SCHOOL OF ECONOMICS", ColorBank.Red,
+            hseText = new TextContent("HIGHER SCHOOL OF ECONOMICS", ColorBank.Red,
                 38 * GameView.scaleFactor, pivot, 0, -150 * GameView.scaleFactor);
         }
 
@@ -39,9 +39,9 @@ namespace Segmentus.Scenes
 
         protected override void Draw(Canvas canvas)
         {
-            supby.OnDraw(canvas);
-            fcs.OnDraw(canvas);
-            hse.OnDraw(canvas);
+            supbyText.OnDraw(canvas);
+            fcsText.OnDraw(canvas);
+            hseText.OnDraw(canvas);
             fcsLogo.OnDraw(canvas);
             hseLogo.OnDraw(canvas);
         }
