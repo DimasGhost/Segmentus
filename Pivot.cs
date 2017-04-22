@@ -4,7 +4,16 @@ namespace Segmentus
 {
     class Pivot
     {
-        public Pivot parent;
+        Pivot _pivot;
+        public Pivot Parent
+        {
+            get { return _pivot; }
+            set
+            {
+                _pivot = value;
+                Changed?.Invoke();
+            }
+        }
         public event Action Changed;
 
         float _x, _y;
@@ -26,14 +35,14 @@ namespace Segmentus
                 Changed?.Invoke();
             }
         }
-        public float AbsX => (parent != null) ? parent.AbsX + X : X;
-        public float AbsY => (parent != null) ? parent.AbsY + Y : Y;
+        public float AbsX => (Parent != null) ? Parent.AbsX + X : X;
+        public float AbsY => (Parent != null) ? Parent.AbsY + Y : Y;
 
         public Pivot(float x = 0, float y = 0, Pivot parent = null)
         {
             X = x;
             Y = y;
-            this.parent = parent;
+            Parent = parent;
         }
     }
 }
