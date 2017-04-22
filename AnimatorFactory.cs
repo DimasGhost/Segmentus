@@ -14,6 +14,7 @@ namespace Segmentus
             v.SetDuration(duration);
             animators.Add(v);
             v.AnimationEnd += (e, sender) => animators.Remove(v);
+            v.AnimationCancel += (e, sender) => animators.Remove(v);
             return v;
         } 
 
