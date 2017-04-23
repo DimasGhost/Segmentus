@@ -22,10 +22,10 @@ namespace Segmentus
                     PerformTouchUp((int)e.GetX(), (int)e.GetY());
                     break;
                 case MotionEventActions.Cancel:
-                    PerformTouchUp((int)e.GetX(), (int)e.GetY());
+                    PerformTouchCancel((int)e.GetX(), (int)e.GetY());
                     break;
                 case MotionEventActions.Move:
-                    PerformTouchUp((int)e.GetX(), (int)e.GetY());
+                    PerformTouchMove((int)e.GetX(), (int)e.GetY());
                     break;
             }
             return true;
@@ -63,6 +63,5 @@ namespace Segmentus
                 else
                     t.OnTouchOutside(x, y);
         }
-
     }
 }
