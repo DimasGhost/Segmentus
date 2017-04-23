@@ -1,11 +1,14 @@
 using Android.Graphics;
+using Android.Animation;
+using Android.Views.Animations;
+using System;
 
 namespace Segmentus
 {
     static class ColorBank
     {
         static Color[] colors = {
-            new Color(85, 85, 85),
+            new Color(50, 50, 50),
             new Color(244, 243, 238),
             new Color(213, 225, 234),
             new Color(238, 99, 82),
@@ -21,5 +24,45 @@ namespace Segmentus
         public const int Background = 5;
 
         static public Color GetColor(int index) => colors[index];
+
+        //Below the background color animation
+
+        const int BgAnimDuration = 500;
+        static float currentBgCoef;
+        static float CurrentBgCoef
+        {
+            get { return currentBgCoef; }
+            set
+            {
+                currentBgCoef = value;
+                byte wr = colors[White].R, br = colors[Black].R;
+                byte wg = colors[White].G, bg = colors[Black].G;
+                byte wb = colors[White].B, bb = colors[Black].B;
+                colors[Background].R = (byte)(wr * value + br * (1 - value));
+                colors[Background].G = (byte)(wg * value + bg * (1 - value));
+                colors[Background].B = (byte)(wb * value + bb * (1 - value));
+                GameView.Instance.Invalidate();
+            }
+        }
+        
+        static ValueAnimator bgAnim;
+
+        static ColorBank()
+        {
+            CurrentBgCoef = 1;
+        }
+
+        static public void ChangeBackgroundColor(bool toBlack)
+        {
+            float coefDest = (toBlack) ? 0 : 1;
+            bgAnim?.Cancel();
+            bgAnim = AnimatorFactory.CreateAnimator(currentBgCoef, coefDest,
+                (int)(Math.Abs(currentBgCoef - coefDest) * BgAnimDuration));
+            bgAnim.SetInterpolator(new DecelerateInterpolator(1.6f));
+            bgAnim.Update += (sender, e) => CurrentBgCoef = (float)e.Animation.AnimatedValue;
+            bgAnim.AnimationCancel += (sender, e) => CurrentBgCoef = coefDest;
+            bgAnim.Start();
+        }
+
     }
 }
