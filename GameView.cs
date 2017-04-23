@@ -50,7 +50,7 @@ namespace Segmentus
         public override bool OnTouchEvent(MotionEvent e)
         {
             TouchHandler.Handle(e);
-            return base.OnTouchEvent(e);
+            return true;
         }
     }
 }
