@@ -1,10 +1,11 @@
 using Android.Graphics;
+using Android.Util;
 
 namespace Segmentus
 {
     abstract class TouchablePart : DrawablePart
     {
-        public Rect bounds;
+        public Rect bounds = new Rect();
         Rect localBounds;
         public TouchablePart(Rect localBounds, Pivot parentPivot, float x = 0, float y = 0)
             : base(parentPivot, x, y) {
