@@ -32,11 +32,12 @@ namespace Segmentus
 
         protected override void OnDestroy()
         {
-            base.OnDestroy();
+            TouchHandler.RemoveAllListeners();
             AnimatorFactory.CancelAllAnimations();
             RemoveScenes();
             GameView.Instance = null;
             GC.Collect();
+            base.OnDestroy();
         }
     }
 }
