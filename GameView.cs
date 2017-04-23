@@ -47,10 +47,6 @@ namespace Segmentus
             canvas.Restore();
         }
 
-        public override bool OnTouchEvent(MotionEvent e)
-        {
-            TouchHandler.Handle(e);
-            return true;
-        }
+        public override bool OnTouchEvent(MotionEvent e) => TouchHandler.Handle(e);
     }
 }

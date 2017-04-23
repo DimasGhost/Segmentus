@@ -9,35 +9,26 @@ namespace Segmentus
 
         public static void RemoveAllListeners() => listeners.Clear();
 
-        const MotionEventActions Down = MotionEventActions.Down;
-        const MotionEventActions Up = MotionEventActions.Up;
-        const MotionEventActions Cancel = MotionEventActions.Cancel;
-        const MotionEventActions Move = MotionEventActions.Move;
-
-        const int InvalidPointerID = -1;
-        static int leadingPointerID = InvalidPointerID;
-
-        public static void Handle(MotionEvent e)
+        public static bool Handle(MotionEvent e)
         {
-            if (e.Action == Down && leadingPointerID == InvalidPointerID)
+            if (e.PointerCount > 1)
+                return false;
+            switch (e.Action)
             {
-                leadingPointerID = e.GetPointerId(e.ActionIndex);
-                PerformTouchDown((int)e.GetX(e.ActionIndex), (int)e.GetY(e.ActionIndex));
+                case MotionEventActions.Down:
+                    PerformTouchDown((int)e.GetX(), (int)e.GetY());
+                    break;
+                case MotionEventActions.Up:
+                    PerformTouchUp((int)e.GetX(), (int)e.GetY());
+                    break;
+                case MotionEventActions.Cancel:
+                    PerformTouchUp((int)e.GetX(), (int)e.GetY());
+                    break;
+                case MotionEventActions.Move:
+                    PerformTouchUp((int)e.GetX(), (int)e.GetY());
+                    break;
             }
-            if (e.Action == Up && e.GetPointerId(e.ActionIndex) == leadingPointerID) {
-                leadingPointerID = InvalidPointerID;
-                PerformTouchUp((int)e.GetX(e.ActionIndex), (int)e.GetY(e.ActionIndex));
-            }
-            if (e.Action == Cancel && e.GetPointerId(e.ActionIndex) == leadingPointerID)
-            {
-                leadingPointerID = InvalidPointerID;
-                PerformTouchCancel((int)e.GetX(e.ActionIndex), (int)e.GetY(e.ActionIndex));
-            }
-
-            if (e.Action != Move || leadingPointerID == InvalidPointerID)
-                return;
-            int index = e.FindPointerIndex(leadingPointerID);
-            PerformTouchMove((int)e.GetX(index), (int)e.GetY(index));
+            return true;
         }
 
         static void PerformTouchDown(int x, int y)
