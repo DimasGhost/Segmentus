@@ -35,14 +35,14 @@ namespace Segmentus
         public GameView(Context context, IAttributeSet attrs) : base(context, attrs, 0)
         {
             Instance = this;
-            rootPivot = new Pivot();
+            rootPivot = new Pivot(xCenter, yCenter);
         }
 
         protected override void OnDraw(Canvas canvas)
         {
             canvas.DrawColor(ColorBank.GetColor(ColorBank.Background));
             canvas.Save();
-            canvas.Translate(xCenter, yCenter);
+            canvas.Translate(rootPivot.X, rootPivot.Y);
             DrawEvent?.Invoke(canvas);
             canvas.Restore();
         }
