@@ -20,7 +20,7 @@ namespace Segmentus
             animators.Clear();
         }
 
-        public event Action<object> Update;
+        public event Action<Java.Lang.Object> Update;
         public event Action After;
         public ValueAnimator core;
 

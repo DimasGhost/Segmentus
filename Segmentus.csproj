@@ -51,13 +51,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnimatorFactory.cs" />
     <Compile Include="BitmapContent.cs" />
     <Compile Include="BitmapLoader.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="ColorBank.cs" />
     <Compile Include="DrawablePart.cs" />
     <Compile Include="GameView.cs" />
+    <Compile Include="HandyAnimator.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Pivot.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
