@@ -35,7 +35,15 @@ namespace Segmentus.Scenes
                 38 * GameView.scaleFactor, pivot, 0, -150 * GameView.scaleFactor);
         }
 
-        protected override void OnShow() {}
+        protected override void OnShow() {
+            HandyAnimator delayAnim = HandyAnimator.OfNothing(1000);
+            delayAnim.After += () =>
+            {
+                Hide(Side.Left);
+                MenuScene.Instance.Show(Side.Right);
+            };
+            delayAnim.core.Start();
+        }
 
         protected override void Draw(Canvas canvas)
         {
