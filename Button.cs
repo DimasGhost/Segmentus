@@ -1,5 +1,4 @@
 using System;
-using Android.Animation;
 using Android.Graphics;
 
 namespace Segmentus
@@ -14,7 +13,7 @@ namespace Segmentus
         public event Action Pressed;
 
         bool disturbed = false;
-        ValueAnimator diveAnim;
+        HandyAnimator diveAnim;
         float currentDiveScale;
         float currentDiveTime;
 
@@ -61,11 +60,11 @@ namespace Segmentus
 
         void AnimateDivingTo(int divingTimeDest)
         {
-            diveAnim?.Cancel();
-            diveAnim = AnimatorFactory.CreateAnimator(currentDiveTime,
+            diveAnim?.core.Cancel();
+            diveAnim = HandyAnimator.OfFloat(currentDiveTime,
                 divingTimeDest, (int)Math.Abs(currentDiveTime - divingTimeDest));
-            diveAnim.Update += (sender, e) => CurrentDiveTime = (float)e.Animation.AnimatedValue;
-            diveAnim.Start();
+            diveAnim.Update += (value) => CurrentDiveTime = (float)value;
+            diveAnim.core.Start();
         }
 
         protected override void Draw(Canvas canvas)

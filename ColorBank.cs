@@ -1,5 +1,4 @@
 using Android.Graphics;
-using Android.Animation;
 using Android.Views.Animations;
 using System;
 
@@ -45,7 +44,7 @@ namespace Segmentus
             }
         }
         
-        static ValueAnimator bgAnim;
+        static HandyAnimator bgAnim;
 
         static ColorBank()
         {
@@ -55,13 +54,12 @@ namespace Segmentus
         static public void ChangeBackgroundColor(bool toBlack)
         {
             float coefDest = (toBlack) ? 0 : 1;
-            bgAnim?.Cancel();
-            bgAnim = AnimatorFactory.CreateAnimator(currentBgCoef, coefDest,
+            bgAnim?.core.Cancel();
+            bgAnim = HandyAnimator.OfFloat(currentBgCoef, coefDest,
                 (int)(Math.Abs(currentBgCoef - coefDest) * BgAnimDuration));
-            bgAnim.SetInterpolator(new DecelerateInterpolator(1.6f));
-            bgAnim.Update += (sender, e) => CurrentBgCoef = (float)e.Animation.AnimatedValue;
-            bgAnim.AnimationCancel += (sender, e) => CurrentBgCoef = coefDest;
-            bgAnim.Start();
+            bgAnim.core.SetInterpolator(new DecelerateInterpolator(1.6f));
+            bgAnim.Update += (value) => CurrentBgCoef = (float)value;
+            bgAnim.core.Start();
         }
 
     }

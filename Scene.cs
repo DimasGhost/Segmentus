@@ -1,5 +1,5 @@
 using Android.Views.Animations;
-using Android.Animation;
+using System;
 
 namespace Segmentus
 {
@@ -17,25 +17,25 @@ namespace Segmentus
         public void Show(Side fromSide)
         {
             GameView.Instance.DrawEvent += OnDraw;
-            float fromX = (fromSide == Side.Left) ? -GameView.CanonWidth : GameView.CanonWidth;
-            fromX *= GameView.scaleFactor;
-            pivot.X = fromX;
-            ValueAnimator anim = AnimatorFactory.CreateAnimator(fromX, 0, SwitchDuration);
-            anim.SetInterpolator(new DecelerateInterpolator(SwitchEasingFactor));
-            anim.Update += (sender, e) => pivot.X = (float)e.Animation.AnimatedValue;
-            anim.AnimationEnd += (sender, e) => OnShow();
-            anim.Start();
+            pivot.X = (fromSide == Side.Left) ? -GameView.CanonWidth : GameView.CanonWidth;
+            pivot.X *= GameView.scaleFactor;
+            AnimateSwitch(pivot.X, 0, () => OnShow()).core.Start();
         }
 
         protected void Hide(Side toSide)
         {
             float toX = (toSide == Side.Left) ? -GameView.CanonWidth : GameView.CanonWidth;
             toX *= GameView.scaleFactor;
-            ValueAnimator anim = AnimatorFactory.CreateAnimator(0, toX, SwitchDuration);
-            anim.SetInterpolator(new DecelerateInterpolator(SwitchEasingFactor));
-            anim.Update += (sender, e) => pivot.X = (float)e.Animation.AnimatedValue;
-            anim.AnimationEnd += (sender, e) => GameView.Instance.DrawEvent -= OnDraw;
-            anim.Start();
+            AnimateSwitch(pivot.X, toX, () => GameView.Instance.DrawEvent -= OnDraw).core.Start();
+        }
+
+        HandyAnimator AnimateSwitch(float fromX, float toX, Action action)
+        {
+            HandyAnimator anim = HandyAnimator.OfFloat(fromX, toX, SwitchDuration);
+            anim.core.SetInterpolator(new DecelerateInterpolator(SwitchEasingFactor));
+            anim.Update += (value) => pivot.X = (float)value;
+            anim.After += action;
+            return anim;
         }
     }
 }

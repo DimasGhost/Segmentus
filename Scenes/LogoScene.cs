@@ -35,7 +35,7 @@ namespace Segmentus.Scenes
                 38 * GameView.scaleFactor, pivot, 0, -150 * GameView.scaleFactor);
         }
 
-        protected override void OnShow() { }
+        protected override void OnShow() {}
 
         protected override void Draw(Canvas canvas)
         {

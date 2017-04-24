@@ -2,7 +2,6 @@
 using Android.App;
 using Android.OS;
 using Segmentus.Scenes;
-using Android.Animation;
 
 namespace Segmentus
 {
@@ -15,9 +14,9 @@ namespace Segmentus
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
             InitScenes();
-            ValueAnimator delayAnim = AnimatorFactory.CreateAnimator(0, 0, 500);
-            delayAnim.AnimationEnd += (sender, e) => LogoScene.Instance.Show(Side.Right);
-            delayAnim.Start();
+            HandyAnimator delayAnim = HandyAnimator.OfNothing(500);
+            delayAnim.After += () => LogoScene.Instance.Show(Side.Right);
+            delayAnim.core.Start();
         }
 
         void InitScenes()
@@ -32,12 +31,12 @@ namespace Segmentus
 
         protected override void OnDestroy()
         {
+            base.OnDestroy();
             TouchHandler.RemoveAllListeners();
-            AnimatorFactory.CancelAllAnimations();
+            HandyAnimator.OnActivityDestroy();
             RemoveScenes();
             GameView.Instance = null;
             GC.Collect();
-            base.OnDestroy();
         }
     }
 }
