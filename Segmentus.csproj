@@ -54,6 +54,7 @@
     <Compile Include="AnimatorFactory.cs" />
     <Compile Include="BitmapContent.cs" />
     <Compile Include="BitmapLoader.cs" />
+    <Compile Include="Button.cs" />
     <Compile Include="ColorBank.cs" />
     <Compile Include="DrawablePart.cs" />
     <Compile Include="GameView.cs" />
@@ -63,7 +64,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="Scenes\LogoScene.cs" />
+    <Compile Include="Scenes\MenuScene.cs" />
+    <Compile Include="Scenes\TopBar.cs" />
+    <Compile Include="SwitchButton.cs" />
     <Compile Include="TextContent.cs" />
+    <Compile Include="TouchablePart.cs" />
+    <Compile Include="TouchHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\fonts\manteka.ttf" />
@@ -89,6 +95,18 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\hse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\daymode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\nightmode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\soundoff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\soundon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

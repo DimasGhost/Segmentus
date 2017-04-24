@@ -40,6 +40,7 @@ namespace Segmentus.Scenes
             delayAnim.After += () =>
             {
                 Hide(Side.Left);
+                TopBar.Instance.Show(Side.Right);
                 MenuScene.Instance.Show(Side.Right);
             };
             delayAnim.core.Start();

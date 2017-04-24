@@ -23,12 +23,14 @@ namespace Segmentus
         {
             LogoScene.Instance = new LogoScene();
             MenuScene.Instance = new MenuScene();
+            TopBar.Instance = new TopBar();
         }
 
         void RemoveScenes()
         {
             LogoScene.Instance = null;
             MenuScene.Instance = null;
+            TopBar.Instance = null;
         }
 
         protected override void OnDestroy()
