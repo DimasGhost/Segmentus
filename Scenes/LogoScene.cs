@@ -36,7 +36,7 @@ namespace Segmentus.Scenes
         }
 
         protected override void OnShow() {
-            HandyAnimator delayAnim = HandyAnimator.OfNothing(1000);
+            HandyAnimator delayAnim = HandyAnimator.OfNothing(1500);
             delayAnim.After += () =>
             {
                 Hide(Side.Left);
