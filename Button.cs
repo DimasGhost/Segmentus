@@ -6,7 +6,7 @@ namespace Segmentus
     class Button : TouchablePart
     {
         const float DiveScale = 0.8f;
-        const int DiveDuration = 200;
+        const int DiveDuration = 150;
 
         protected DrawablePart face;
 
