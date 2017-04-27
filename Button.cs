@@ -3,7 +3,7 @@ using Android.Graphics;
 
 namespace Segmentus
 {
-    abstract class Button : TouchablePart
+    class Button : TouchablePart
     {
         const float DiveScale = 0.8f;
         const int DiveDuration = 200;
