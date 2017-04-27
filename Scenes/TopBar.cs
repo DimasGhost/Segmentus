@@ -13,9 +13,9 @@ namespace Segmentus.Scenes
         {
             int size = (int)(110 * GameView.scaleFactor);
             Bitmap daymodeBitmap = 
-                BitmapLoader.LoadAndResize(Resource.Drawable.daymode, size, size);
+                BitmapLoader.LoadAndResize(Resource.Drawable.top_daymode, size, size);
             Bitmap nightmodeBitmap =
-                BitmapLoader.LoadAndResize(Resource.Drawable.nightmode, size, size);
+                BitmapLoader.LoadAndResize(Resource.Drawable.top_nightmode, size, size);
             BitmapContent daymode = new BitmapContent(daymodeBitmap, null);
             BitmapContent nightmode = new BitmapContent(nightmodeBitmap, null);
             int vSize = (int)(size / 1.2);

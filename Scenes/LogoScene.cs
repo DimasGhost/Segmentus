@@ -16,12 +16,12 @@ namespace Segmentus.Scenes
         public LogoScene() : base()
         {
             int fcsDiameter = (int)(330 * GameView.scaleFactor);
-            Bitmap fcsBitmap = BitmapLoader.LoadAndResize(Resource.Drawable.fcs, 
+            Bitmap fcsBitmap = BitmapLoader.LoadAndResize(Resource.Drawable.logo_fcs, 
                 fcsDiameter, fcsDiameter);
             fcsLogo = new BitmapContent(fcsBitmap, pivot, 0, 80 * GameView.scaleFactor);
 
             int hseDiameter = (int)(128 * GameView.scaleFactor);
-            Bitmap hseBitmap = BitmapLoader.LoadAndResize(Resource.Drawable.hse,
+            Bitmap hseBitmap = BitmapLoader.LoadAndResize(Resource.Drawable.logo_hse,
                 hseDiameter, hseDiameter);
             hseLogo = new BitmapContent(hseBitmap, pivot, 0, 350 * GameView.scaleFactor);
 
