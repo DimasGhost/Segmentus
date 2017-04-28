@@ -5,7 +5,7 @@ namespace Segmentus
     abstract class TouchablePart : DrawablePart
     {
         public Rect bounds = new Rect();
-        Rect localBounds;
+        protected Rect localBounds;
         public TouchablePart(Rect localBounds, Pivot parentPivot, float x = 0, float y = 0)
             : base(parentPivot, x, y) {
             this.localBounds = localBounds;
