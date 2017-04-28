@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Android.Views;
 
 namespace Segmentus
@@ -33,7 +34,7 @@ namespace Segmentus
 
         static void PerformTouchDown(int x, int y)
         {
-            foreach (TouchablePart t in listeners)
+            foreach (TouchablePart t in listeners.ToList())
                 if (t.bounds.Contains(x, y))
                     t.OnTouchDown(x, y);
                 else
@@ -42,7 +43,7 @@ namespace Segmentus
 
         static void PerformTouchUp(int x, int y)
         {
-            foreach (TouchablePart t in listeners)
+            foreach (TouchablePart t in listeners.ToList())
                 if (t.bounds.Contains(x, y))
                     t.OnTouchUp(x, y);
                 else
@@ -51,13 +52,13 @@ namespace Segmentus
 
         static void PerformTouchCancel(int x, int y)
         {
-            foreach (TouchablePart t in listeners)
+            foreach (TouchablePart t in listeners.ToList())
                 t.OnTouchCancel(x, y);
         }
 
         static void PerformTouchMove(int x, int y)
         {
-            foreach (TouchablePart t in listeners)
+            foreach (TouchablePart t in listeners.ToList())
                 if (t.bounds.Contains(x, y))
                     t.OnTouchMove(x, y);
                 else
