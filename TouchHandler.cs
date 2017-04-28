@@ -35,7 +35,7 @@ namespace Segmentus
         static void PerformTouchDown(int x, int y)
         {
             foreach (TouchablePart t in listeners.ToList())
-                if (t.bounds.Contains(x, y))
+                if (t.Bounds.Contains(x, y))
                     t.OnTouchDown(x, y);
                 else
                     t.OnTouchOutside(x, y);
@@ -44,7 +44,7 @@ namespace Segmentus
         static void PerformTouchUp(int x, int y)
         {
             foreach (TouchablePart t in listeners.ToList())
-                if (t.bounds.Contains(x, y))
+                if (t.Bounds.Contains(x, y))
                     t.OnTouchUp(x, y);
                 else
                     t.OnTouchCancel(x, y);
@@ -59,7 +59,7 @@ namespace Segmentus
         static void PerformTouchMove(int x, int y)
         {
             foreach (TouchablePart t in listeners.ToList())
-                if (t.bounds.Contains(x, y))
+                if (t.Bounds.Contains(x, y))
                     t.OnTouchMove(x, y);
                 else
                     t.OnTouchOutside(x, y);
