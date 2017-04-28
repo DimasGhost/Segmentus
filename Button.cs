@@ -79,8 +79,8 @@ namespace Segmentus
                 Paint p = new Paint();
                 p.Color = new Color(0, 0, 255);
                 p.SetStyle(Paint.Style.Stroke);
+                canvas.DrawRect(localBounds, p);
             }
-            canvas.DrawRect(localBounds, p);
             canvas.Restore();
         }
 
