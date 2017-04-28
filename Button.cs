@@ -5,6 +5,8 @@ namespace Segmentus
 {
     class Button : TouchablePart
     {
+        const bool DebugDraw = true;
+
         const float DiveScale = 0.8f;
         const int DiveDuration = 150;
 
@@ -72,6 +74,13 @@ namespace Segmentus
             canvas.Save();
             canvas.Scale(currentDiveScale, currentDiveScale);
             face.OnDraw(canvas);
+            if (DebugDraw)
+            {
+                Paint p = new Paint();
+                p.Color = new Color(0, 0, 255);
+                p.SetStyle(Paint.Style.Stroke);
+            }
+            canvas.DrawRect(localBounds, p);
             canvas.Restore();
         }
 
