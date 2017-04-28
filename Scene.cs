@@ -12,10 +12,15 @@ namespace Segmentus
 
         public Scene() : base(GameView.Instance.rootPivot) {}
 
-        protected abstract void OnShow();
+        protected virtual void OnShow() { }
+        protected virtual void BeforeHide() { }
+        protected virtual void Activate() { }
+        protected virtual void Deactivate() { }
+
 
         public void Show(Side fromSide)
         {
+            Activate();
             GameView.Instance.DrawEvent += OnDraw;
             pivot.X = (fromSide == Side.Left) ? -GameView.CanonWidth : GameView.CanonWidth;
             pivot.X *= GameView.scaleFactor;
@@ -24,6 +29,8 @@ namespace Segmentus
 
         protected void Hide(Side toSide)
         {
+            Deactivate();
+            BeforeHide();
             float toX = (toSide == Side.Left) ? -GameView.CanonWidth : GameView.CanonWidth;
             toX *= GameView.scaleFactor;
             AnimateSwitch(pivot.X, toX, () => GameView.Instance.DrawEvent -= OnDraw).core.Start();

@@ -21,6 +21,11 @@ namespace Segmentus.Scenes
 
             playButton = CreateHexagonButton((int)(320 * GameView.scaleFactor),
                 Resource.Drawable.menu_play, 0, -20 * GameView.scaleFactor);
+            playButton.Pressed += () =>
+            {
+                ChoiceScene.Instance.Show(Side.Right);
+                Hide(Side.Left);
+            };
 
             rankButton = CreateHexagonButton((int)(190 * GameView.scaleFactor),
                 Resource.Drawable.menu_leaderboards, -160 * GameView.scaleFactor, 
@@ -44,11 +49,20 @@ namespace Segmentus.Scenes
             return new Button(content, bounds, pivot, x, y);
         }
 
-        protected override void OnShow() {
+        protected override void Activate()
+        {
             playButton.Activate();
             rankButton.Activate();
             profileButton.Activate();
             helpButton.Activate();
+        }
+
+        protected override void Deactivate()
+        {
+            playButton.Deactivate();
+            rankButton.Deactivate();
+            profileButton.Deactivate();
+            helpButton.Deactivate();
         }
 
         protected override void Draw(Canvas canvas)

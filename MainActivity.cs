@@ -24,6 +24,7 @@ namespace Segmentus
             LogoScene.Instance = new LogoScene();
             MenuScene.Instance = new MenuScene();
             TopBar.Instance = new TopBar();
+            ChoiceScene.Instance = new ChoiceScene();
         }
 
         void RemoveScenes()
@@ -31,6 +32,7 @@ namespace Segmentus
             LogoScene.Instance = null;
             MenuScene.Instance = null;
             TopBar.Instance = null;
+            ChoiceScene.Instance = null;
         }
 
         protected override void OnDestroy()

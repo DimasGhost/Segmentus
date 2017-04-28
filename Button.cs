@@ -5,7 +5,7 @@ namespace Segmentus
 {
     class Button : TouchablePart
     {
-        const bool DebugDraw = true;
+        const bool DebugDraw = false;
 
         const float DiveScale = 0.8f;
         const int DiveDuration = 150;

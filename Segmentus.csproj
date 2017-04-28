@@ -55,6 +55,7 @@
     <Compile Include="BitmapLoader.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="ColorBank.cs" />
+    <Compile Include="ComplexContent.cs" />
     <Compile Include="DrawablePart.cs" />
     <Compile Include="GameView.cs" />
     <Compile Include="HandyAnimator.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene.cs" />
+    <Compile Include="Scenes\ChoiceScene.cs" />
     <Compile Include="Scenes\LogoScene.cs" />
     <Compile Include="Scenes\MenuScene.cs" />
     <Compile Include="Scenes\TopBar.cs" />
@@ -119,6 +121,15 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\choice_multiplayer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\choice_singleplayer.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
