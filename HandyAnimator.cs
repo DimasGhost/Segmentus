@@ -11,9 +11,10 @@ namespace Segmentus
 
         static public void OnActivityDestroy()
         {
-            List<HandyAnimator> l = animators.ToList<HandyAnimator>();
+            List<HandyAnimator> l = animators.ToList();
             foreach (HandyAnimator ha in l)
             {
+                ha.RemoveAfterActions();
                 ha.After = null;
                 ha.core.End();
             }
@@ -23,6 +24,8 @@ namespace Segmentus
         public event Action<Java.Lang.Object> Update;
         public event Action After;
         public ValueAnimator core;
+
+        public void RemoveAfterActions() => After = null;
 
         HandyAnimator(ValueAnimator coreAnim, int duration)
         {
