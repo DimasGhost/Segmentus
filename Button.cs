@@ -72,6 +72,9 @@ namespace Segmentus
         protected override void Draw(Canvas canvas)
         {
             canvas.Save();
+            canvas.Scale(currentDiveScale, currentDiveScale);
+            face.OnDraw(canvas);
+            canvas.Restore();
             if (DebugDraw)
             {
                 Paint p = new Paint();
@@ -79,9 +82,6 @@ namespace Segmentus
                 p.SetStyle(Paint.Style.Stroke);
                 canvas.DrawRect(localBounds, p);
             }
-            canvas.Scale(currentDiveScale, currentDiveScale);
-            face.OnDraw(canvas);
-            canvas.Restore();
         }
 
     }
