@@ -9,6 +9,7 @@ namespace Segmentus
     {
         const int SwitchDuration = 750;
         const float SwitchEasingFactor = 2.2f;
+        HandyAnimator switchAnim;
 
         public Scene() : base(GameView.Instance.rootPivot) {}
 
@@ -21,28 +22,30 @@ namespace Segmentus
         public void Show(Side fromSide)
         {
             Activate();
-            GameView.Instance.DrawEvent += OnDraw;
             pivot.X = (fromSide == Side.Left) ? -GameView.CanonWidth : GameView.CanonWidth;
             pivot.X *= GameView.scaleFactor;
-            AnimateSwitch(pivot.X, 0, () => OnShow()).core.Start();
+            AnimateSwitch(pivot.X, 0, OnShow);
+            GameView.Instance.DrawEvent += OnDraw;
         }
 
         protected void Hide(Side toSide)
         {
             Deactivate();
-            BeforeHide();
             float toX = (toSide == Side.Left) ? -GameView.CanonWidth : GameView.CanonWidth;
             toX *= GameView.scaleFactor;
-            AnimateSwitch(pivot.X, toX, () => GameView.Instance.DrawEvent -= OnDraw).core.Start();
+            AnimateSwitch(pivot.X, toX, () => GameView.Instance.DrawEvent -= OnDraw);
+            BeforeHide();
         }
 
-        HandyAnimator AnimateSwitch(float fromX, float toX, Action action)
+        void AnimateSwitch(float fromX, float toX, Action action)
         {
-            HandyAnimator anim = HandyAnimator.OfFloat(fromX, toX, SwitchDuration);
-            anim.core.SetInterpolator(new DecelerateInterpolator(SwitchEasingFactor));
-            anim.Update += (value) => pivot.X = (float)value;
-            anim.After += action;
-            return anim;
+            if (switchAnim != null && switchAnim.core.IsRunning)
+                switchAnim.core.Cancel();
+            switchAnim = HandyAnimator.OfFloat(fromX, toX, SwitchDuration);
+            switchAnim.core.SetInterpolator(new DecelerateInterpolator(SwitchEasingFactor));
+            switchAnim.Update += (value) => pivot.X = (float)value;
+            switchAnim.After += action;
+            switchAnim.core.Start();
         }
     }
 }
