@@ -38,7 +38,6 @@ namespace Segmentus.Scenes
                 pivot, -265 * GameView.scaleFactor, -380 * GameView.scaleFactor);
             backButton.Pressed += () =>
             {
-                BeforeHide();
                 MenuScene.Instance.Show(Side.Left);
                 Hide(Side.Right);
             };
