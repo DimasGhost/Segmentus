@@ -29,13 +29,15 @@ namespace Segmentus.Scenes
             dayNightSwitch.StateChanged += (state) => ColorBank.ChangeBackgroundColor(state == 0);
         }
 
-        protected override void Activate()
+        protected override void BeforeShow()
         {
+            base.BeforeShow();
             dayNightSwitch.Activate();
         }
 
-        protected override void Deactivate()
+        protected override void BeforeHide()
         {
+            base.BeforeHide();
             dayNightSwitch.Deactivate();
         }
 

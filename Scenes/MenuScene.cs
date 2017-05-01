@@ -49,16 +49,18 @@ namespace Segmentus.Scenes
             return new Button(content, bounds, pivot, x, y);
         }
 
-        protected override void Activate()
+        protected override void BeforeShow()
         {
+            base.BeforeShow();
             playButton.Activate();
             rankButton.Activate();
             profileButton.Activate();
             helpButton.Activate();
         }
 
-        protected override void Deactivate()
+        protected override void BeforeHide()
         {
+            base.BeforeHide();
             playButton.Deactivate();
             rankButton.Deactivate();
             profileButton.Deactivate();

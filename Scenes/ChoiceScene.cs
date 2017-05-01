@@ -57,15 +57,17 @@ namespace Segmentus.Scenes
             return new Button(cc, bounds, pivot, x, y);
         }
 
-        protected override void Activate()
+        protected override void BeforeShow()
         {
+            base.BeforeShow();
             spButton.Activate();
             mpButton.Activate();
             backButton.Activate();
         }
 
-        protected override void Deactivate()
+        protected override void BeforeHide()
         {
+            base.BeforeHide();
             spButton.Deactivate();
             mpButton.Deactivate();
             backButton.Deactivate();
