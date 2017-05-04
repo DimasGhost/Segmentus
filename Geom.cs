@@ -24,13 +24,13 @@ namespace Segmentus
             public Segment(Point a, Point b) { this.a = a; this.b = b; }
         }
 
-        static long DotProduct(Vector a, Vector b) => a.x * b.x + a.y * b.y;
+        public static long DotProduct(Vector a, Vector b) => a.x * b.x + a.y * b.y;
 
-        static long CrossProduct(Vector a, Vector b) => a.x * b.y - a.y * b.x;
+        public static long CrossProduct(Vector a, Vector b) => a.x * b.y - a.y * b.x;
 
-        static double Dist(Point a, Point b) => (new Vector(a, b)).Length();
+        public static double Dist(Point a, Point b) => (new Vector(a, b)).Length();
 
-        static double Dist(Segment s, Point p)
+        public static double Dist(Segment s, Point p)
         {
             Vector ab = new Vector(s.a, s.b), ba = new Vector(s.b, s.a);
             Vector ap = new Vector(s.a, p), bp = new Vector(s.b, p);
@@ -41,7 +41,7 @@ namespace Segmentus
             return CrossProduct(ab, ap) / ab.Length();
         }
 
-        static bool IsIntersected(Segment a, Segment b)
+        public static bool IsIntersected(Segment a, Segment b)
         {
             int al = Math.Min(a.a.x, a.b.x), ar = Math.Max(a.a.x, a.b.x);
             int ad = Math.Min(a.a.y, a.b.y), au = Math.Max(a.a.y, a.b.y);
