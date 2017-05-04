@@ -24,6 +24,11 @@ namespace Segmentus.Scenes
                 (int)(235 * GameView.scaleFactor));
             spButton = CreateItem(Resource.Drawable.choice_singleplayer,
                 "SINGLEPLAYER", bounds, 0, -170 * GameView.scaleFactor);
+            spButton.Pressed += () => {
+                Hide(Side.Left);
+                SingleGameRunupScene.Instance.Show(Side.Right);
+            };
+
             bounds = new Rect(bounds);
             bounds.Top = (int)(-130 * GameView.scaleFactor);
             mpButton = CreateItem(Resource.Drawable.choice_multiplayer,

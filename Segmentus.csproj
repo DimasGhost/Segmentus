@@ -59,6 +59,8 @@
     <Compile Include="DrawablePart.cs" />
     <Compile Include="GameView.cs" />
     <Compile Include="HandyAnimator.cs" />
+    <Compile Include="HLineSwitch.cs" />
+    <Compile Include="LoadingIndicator.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Pivot.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -67,6 +69,7 @@
     <Compile Include="Scenes\ChoiceScene.cs" />
     <Compile Include="Scenes\LogoScene.cs" />
     <Compile Include="Scenes\MenuScene.cs" />
+    <Compile Include="Scenes\SingleGameRunupScene.cs" />
     <Compile Include="Scenes\TopBar.cs" />
     <Compile Include="SwitchButton.cs" />
     <Compile Include="TextContent.cs" />
@@ -130,6 +133,15 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\choice_singleplayer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\brain_easy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\brain_hard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\brain_normal.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
