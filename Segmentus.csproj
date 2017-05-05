@@ -58,6 +58,8 @@
     <Compile Include="ComplexContent.cs" />
     <Compile Include="DrawablePart.cs" />
     <Compile Include="GameView.cs" />
+    <Compile Include="GenerateFieldTask.cs" />
+    <Compile Include="Geom.cs" />
     <Compile Include="HandyAnimator.cs" />
     <Compile Include="HLineSwitch.cs" />
     <Compile Include="LoadingIndicator.cs" />
