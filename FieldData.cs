@@ -7,7 +7,7 @@ namespace Segmentus
         public const int InvalidSegmentID = -1;
         const int MinSegmentDist = 60;
 
-        int pointsCnt, segmentsCnt;
+        public int pointsCnt, segmentsCnt;
         public Geom.Point[] points;
         public Geom.Segment[] segments;
         public int[,] segmentId;
