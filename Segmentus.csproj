@@ -53,12 +53,15 @@
   <ItemGroup>
     <Compile Include="BitmapContent.cs" />
     <Compile Include="BitmapLoader.cs" />
+    <Compile Include="BotCompetitor.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="ColorBank.cs" />
+    <Compile Include="Competitor.cs" />
     <Compile Include="ComplexContent.cs" />
     <Compile Include="DrawablePart.cs" />
+    <Compile Include="FieldData.cs" />
     <Compile Include="GameView.cs" />
-    <Compile Include="GenerateFieldTask.cs" />
+    <Compile Include="GenerateFieldDataTask.cs" />
     <Compile Include="Geom.cs" />
     <Compile Include="HandyAnimator.cs" />
     <Compile Include="HLineSwitch.cs" />
