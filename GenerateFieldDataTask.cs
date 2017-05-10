@@ -17,8 +17,6 @@ namespace Segmentus
         const double TemperatureMultiplier = 0.9817479849;
 
         Action<FieldData> callback;
-        float scaleFactor;
-
         Geom.Point[] points;
         FieldData fd;
 
@@ -59,10 +57,9 @@ namespace Segmentus
             return curError;
         }
 
-        public GenerateFieldDataTask(Action<FieldData> callback, float scaleFactor) : base()
+        public GenerateFieldDataTask(Action<FieldData> callback) : base()
         {
             this.callback = callback;
-            this.scaleFactor = scaleFactor;
         }
 
         protected override Java.Lang.Object DoInBackground(params Java.Lang.Object[] @params)
@@ -70,7 +67,6 @@ namespace Segmentus
             points = new Geom.Point[N];
             while (Anneal() > double.Epsilon);
             fd = new FieldData(points);
-            fd.Rescale(scaleFactor);
             return true;
         }
 

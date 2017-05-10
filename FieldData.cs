@@ -47,20 +47,5 @@ namespace Segmentus
                 Array.Resize(ref intersectedWith[i], intersectedCnt);
             }
         }
-
-        public void Rescale(float scaleFactor)
-        {
-            for (int i = 0; i < pointsCnt; ++i) {
-                points[i].x = (int)(points[i].x * scaleFactor);
-                points[i].y = (int)(points[i].y * scaleFactor);
-            }
-            for (int i = 0; i < segmentsCnt; ++i)
-            {
-                segments[i].a.x = (int)(segments[i].a.x * scaleFactor);
-                segments[i].a.y = (int)(segments[i].a.y * scaleFactor);
-                segments[i].b.x = (int)(segments[i].b.x * scaleFactor);
-                segments[i].b.y = (int)(segments[i].b.y * scaleFactor);
-            }
-        }
     }
 }
