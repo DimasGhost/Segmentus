@@ -20,24 +20,30 @@ namespace Segmentus
 
         public void Show(Side fromSide)
         {
-            BeforeShow();
             pivot.X = (fromSide == Side.Left) ? -GameView.CanonWidth : GameView.CanonWidth;
             pivot.X *= GameView.scaleFactor;
+            ReleaseAnimation();
+            BeforeShow();
             AnimateSwitch(pivot.X, 0, AfterShow);
         }
 
         protected void Hide(Side toSide)
         {
-            BeforeHide();
             float toX = (toSide == Side.Left) ? -GameView.CanonWidth : GameView.CanonWidth;
             toX *= GameView.scaleFactor;
+            ReleaseAnimation();
+            BeforeHide();
             AnimateSwitch(pivot.X, toX, AfterHide);
+        }
+
+        void ReleaseAnimation()
+        {
+            if (switchAnim != null && switchAnim.core.IsRunning)
+                switchAnim.core.Cancel();
         }
 
         void AnimateSwitch(float fromX, float toX, Action action)
         {
-            if (switchAnim != null && switchAnim.core.IsRunning)
-                switchAnim.core.Cancel();
             switchAnim = HandyAnimator.OfFloat(fromX, toX, SwitchDuration);
             switchAnim.core.SetInterpolator(new DecelerateInterpolator(SwitchEasingFactor));
             switchAnim.Update += (value) => pivot.X = (float)value;
