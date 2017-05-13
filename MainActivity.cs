@@ -40,6 +40,7 @@ namespace Segmentus
         protected override void OnDestroy()
         {
             base.OnDestroy();
+            TaskRegistrator.CancelAllTasks();
             TouchHandler.RemoveAllListeners();
             HandyAnimator.OnActivityDestroy();
             RemoveScenes();

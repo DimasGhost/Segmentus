@@ -70,6 +70,15 @@ namespace Segmentus
             return true;
         }
 
-        protected override void OnPostExecute(Java.Lang.Object result) => callback(fd);
+        protected override void OnPreExecute()
+        {
+            TaskRegistrator.tasks.Add(this);
+        }
+
+        protected override void OnPostExecute(Java.Lang.Object result)
+        {
+            callback(fd);
+            TaskRegistrator.tasks.Remove(this);
+        }
     }
 }
