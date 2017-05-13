@@ -7,7 +7,7 @@ namespace Segmentus.Scenes
         public static SingleGameRunupScene Instance;
 
         LoadingIndicator loading;
-        Button easyButton, normalButton, hardButton;
+        Button easyButton, normalButton, hardButton, backButton;
         HLineSwitch lineSwitch;
 
         public SingleGameRunupScene() : base()
@@ -28,6 +28,19 @@ namespace Segmentus.Scenes
 
             lineSwitch = new HLineSwitch((int)(720 * GameView.scaleFactor),
                 (int)(200 * GameView.scaleFactor), 3, 1, pivot, 0, 460 * GameView.scaleFactor);
+
+            int size = (int)(90 * GameView.scaleFactor);
+            Bitmap backBitmap = BitmapLoader.LoadAndResize(Resource.Drawable.back,
+                size, size);
+            BitmapContent backContent = new BitmapContent(backBitmap, null);
+            int hb = (int)(80 * GameView.scaleFactor);
+            backButton = new Button(backContent, new Rect(-hb, -hb, hb, hb),
+                pivot, -265 * GameView.scaleFactor, -380 * GameView.scaleFactor);
+            backButton.Pressed += () =>
+            {
+                ChoiceScene.Instance.Show(Side.Left);
+                Hide(Side.Right);
+            };
         }
 
         Button CreateDifficultyButton(int res_id, string text, float x, float y)
@@ -53,6 +66,7 @@ namespace Segmentus.Scenes
             easyButton.Activate();
             normalButton.Activate();
             hardButton.Activate();
+            backButton.Activate();
             loading.Start();
         }
 
@@ -62,6 +76,13 @@ namespace Segmentus.Scenes
             easyButton.Deactivate();
             normalButton.Deactivate();
             hardButton.Deactivate();
+            backButton.Deactivate();
+        }
+
+        protected override void AfterHide()
+        {
+            base.AfterHide();
+            loading.Stop();
         }
 
         protected override void Draw(Canvas canvas)
@@ -71,6 +92,7 @@ namespace Segmentus.Scenes
             hardButton.OnDraw(canvas);
             loading.OnDraw(canvas);
             lineSwitch.OnDraw(canvas);
+            backButton.OnDraw(canvas);
         }
     }
 }

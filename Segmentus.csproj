@@ -53,13 +53,13 @@
   <ItemGroup>
     <Compile Include="BitmapContent.cs" />
     <Compile Include="BitmapLoader.cs" />
-    <Compile Include="BotCompetitor.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="ColorBank.cs" />
-    <Compile Include="Competitor.cs" />
     <Compile Include="ComplexContent.cs" />
     <Compile Include="DrawablePart.cs" />
     <Compile Include="FieldData.cs" />
+    <Compile Include="GameField.cs" />
+    <Compile Include="GamePoint.cs" />
     <Compile Include="GameView.cs" />
     <Compile Include="GenerateFieldDataTask.cs" />
     <Compile Include="Geom.cs" />
@@ -76,6 +76,7 @@
     <Compile Include="Scenes\MenuScene.cs" />
     <Compile Include="Scenes\SingleGameRunupScene.cs" />
     <Compile Include="Scenes\TopBar.cs" />
+    <Compile Include="GameSegment.cs" />
     <Compile Include="SwitchButton.cs" />
     <Compile Include="TextContent.cs" />
     <Compile Include="TouchablePart.cs" />
