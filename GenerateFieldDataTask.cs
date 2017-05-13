@@ -75,6 +75,11 @@ namespace Segmentus
             TaskRegistrator.tasks.Add(this);
         }
 
+        protected override void OnCancelled()
+        {
+            TaskRegistrator.tasks.Remove(this);
+        }
+
         protected override void OnPostExecute(Java.Lang.Object result)
         {
             callback(fd);

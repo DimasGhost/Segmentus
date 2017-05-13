@@ -1,14 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 
 namespace Segmentus
 {
@@ -18,7 +9,8 @@ namespace Segmentus
 
         public static void CancelAllTasks()
         {
-            foreach (AsyncTask t in tasks)
+            List<AsyncTask> l = new List<AsyncTask>(tasks);
+            foreach (AsyncTask t in l)
                 t.Cancel(true);
             tasks.Clear();
         }
