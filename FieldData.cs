@@ -10,17 +10,17 @@ namespace Segmentus
         public int pointsCnt, segmentsCnt;
         public Geom.Point[] points;
         public Geom.Segment[] segments;
-        public int[,] segmentId;
+        public int[,] segmentID;
         public int[][] intersectedWith;
 
         public FieldData(Geom.Point[] points)
         {
             this.points = points;
             pointsCnt = points.Length;
-            segmentId = new int[pointsCnt, pointsCnt];
+            segmentID = new int[pointsCnt, pointsCnt];
             for (int i = 0; i < pointsCnt; ++i)
                 for (int j = 0; j < pointsCnt; ++j)
-                    segmentId[i, j] = InvalidSegmentID;
+                    segmentID[i, j] = InvalidSegmentID;
             segments = new Geom.Segment[pointsCnt * pointsCnt];
             segmentsCnt = 0;
             for (int i = 0; i < pointsCnt; ++i)
@@ -33,7 +33,7 @@ namespace Segmentus
                             correct &= Geom.Dist(cur, points[k]) >= MinSegmentDist;
                     if (!correct)
                         continue;
-                    segments[segmentId[i, j] = segmentId[j, i] = segmentsCnt++] = cur;
+                    segments[segmentID[i, j] = segmentID[j, i] = segmentsCnt++] = cur;
                 }
             Array.Resize(ref segments, segmentsCnt);
             intersectedWith = new int[segmentsCnt][];
