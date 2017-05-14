@@ -78,6 +78,7 @@
     <Compile Include="Scenes\TopBar.cs" />
     <Compile Include="GameSegment.cs" />
     <Compile Include="SwitchButton.cs" />
+    <Compile Include="TaskRegistrator.cs" />
     <Compile Include="TextContent.cs" />
     <Compile Include="TouchablePart.cs" />
     <Compile Include="TouchHandler.cs" />
