@@ -9,7 +9,7 @@ namespace Segmentus
         static Color[] colors = {
             new Color(50, 50, 50),
             new Color(244, 243, 238),
-            new Color(213, 225, 234),
+            new Color(165, 192, 211),
             new Color(238, 99, 82),
             new Color(255, 209, 81),
             new Color(244, 243, 238)
