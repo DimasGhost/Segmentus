@@ -50,7 +50,7 @@ namespace Segmentus
                 p.AnimateAppearance();
         }
 
-        void OnCompetitorsMove(int point1, int point2)
+        public void OnCompetitorsMove(int point1, int point2)
         {
             points[point1].State = GamePoint.PointState.UsedByCompetitor;
             points[point2].State = GamePoint.PointState.UsedByCompetitor;
