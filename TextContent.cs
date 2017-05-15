@@ -7,6 +7,15 @@ namespace Segmentus
     {
         string text;
         int colorID;
+        public int ColorID
+        {
+            get { return colorID; }
+            set
+            {
+                colorID = value;
+                OnAppearanceChanged();
+            }
+        }
         float size;
         int originX, originY;
 
