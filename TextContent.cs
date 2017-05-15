@@ -6,6 +6,16 @@ namespace Segmentus
     class TextContent : DrawablePart
     {
         string text;
+        string Text
+        {
+            get { return text; }
+            set
+            {
+                text = value;
+                RecountOrigin();
+                OnAppearanceChanged();
+            }
+        }
         int colorID;
         public int ColorID
         {
@@ -36,7 +46,6 @@ namespace Segmentus
             this.colorID = colorID;
             this.size = size;
             RecountOrigin();
-            pivot.Changed += RecountOrigin;
         }
 
         void RecountOrigin()
