@@ -22,7 +22,7 @@ namespace Segmentus
             double res = 0;
             for (int i = 0; i < N; ++i)
                 for (int j = i + 1; j < N; ++j)
-                    res += Math.Max(0, Geom.Dist(points[i], points[j]) - MinPointDist);
+                    res += Math.Max(0, MinPointDist - Geom.Dist(points[i], points[j]));
             return res;
         }
 
