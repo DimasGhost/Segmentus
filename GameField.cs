@@ -20,7 +20,7 @@ namespace Segmentus
         SortedSet<int> pointsTargeted = new SortedSet<int>();
         int pointA, pointB;
         
-        public event Action<int, int> PlayerMoved;
+        public event Action<int> PlayerMoved;
 
         static GameField()
         {
@@ -50,8 +50,10 @@ namespace Segmentus
                 p.AnimateAppearance();
         }
 
-        public void OnCompetitorsMove(int point1, int point2)
+        public void OnCompetitorsMove(int segID)
         {
+            int point1 = fieldData.pointAbySegment[segID];
+            int point2 = fieldData.pointBbySegment[segID];
             points[point1].State = GamePoint.PointState.UsedByCompetitor;
             points[point2].State = GamePoint.PointState.UsedByCompetitor;
             AddSegment(point1, point2, ColorBank.Blue);
@@ -189,7 +191,7 @@ namespace Segmentus
             points[pointA].State = GamePoint.PointState.UsedByPlayer;
             points[pointB].State = GamePoint.PointState.UsedByPlayer;
             AddSegment(pointA, pointB, ColorBank.Yellow);
-            PlayerMoved?.Invoke(pointA, pointB);
+            PlayerMoved?.Invoke(fieldData.segmentID[pointA, pointB]);
             state = FieldState.Free;
         }
 

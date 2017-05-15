@@ -12,6 +12,8 @@ namespace Segmentus
         public Geom.Segment[] segments;
         public int[,] segmentID;
         public int[][] intersectedWith;
+        public int[] pointAbySegment;
+        public int[] pointBbySegment;
 
         public FieldData(Geom.Point[] points)
         {
@@ -46,6 +48,15 @@ namespace Segmentus
                         intersectedWith[i][intersectedCnt++] = j;
                 Array.Resize(ref intersectedWith[i], intersectedCnt);
             }
+            pointAbySegment = new int[segmentsCnt];
+            pointBbySegment = new int[segmentsCnt];
+            for (int i = 0; i < pointsCnt; ++i)
+                for (int j = i + 1; j < pointsCnt; ++j)
+                    if (segmentID[i, j] != InvalidSegmentID)
+                    {
+                        pointAbySegment[segmentID[i, j]] = i;
+                        pointBbySegment[segmentID[i, j]] = j;
+                    }
         }
     }
 }
