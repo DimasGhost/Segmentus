@@ -104,17 +104,17 @@ namespace Segmentus
             switch (state)
             {
                 case FieldState.Free:
-                    if (curID >= 0) {
-                        pointA = curID;
-                        points[pointA].State = GamePoint.PointState.Selected;
-                        MakeTargets(pointA);
-                        state = FieldState.OneDown;
-                    }
+                    if (curID != -1)
+                        break;
+                    pointA = curID;
+                    points[pointA].State = GamePoint.PointState.Selected;
+                    MakeTargets(pointA);
+                    state = FieldState.OneDown;
                     break;
                 case FieldState.OneSelected:
                     bool targeted = pointsTargeted.Contains(curID);
                     ClearTargets();
-                    if (curID < 0 || curID == pointA)
+                    if (curID == -1 || curID == pointA)
                     {
                         points[pointA].State = GamePoint.PointState.Normal;
                         state = FieldState.Free;
@@ -162,7 +162,7 @@ namespace Segmentus
                     OnTouchMove(x, y);
                     break;
                 case FieldState.OneStretched:
-                    if (curID < 0 || curID == pointA)
+                    if (curID == -1 || curID == pointA)
                     {
                         dottedSegment.HeadX = x;
                         dottedSegment.HeadY = y;
@@ -223,31 +223,15 @@ namespace Segmentus
 
         void GoToFreeStateFromAnyTouchedState()
         {
-            switch (state)
-            {
-                case FieldState.OneDown:
-                case FieldState.OneSelectedOneDown:
-                case FieldState.OneStretched:
-                case FieldState.OneStretchedOneAimed:
-                    ClearTargets();
-                    points[pointA].State = GamePoint.PointState.Normal;
-                    state = FieldState.Free;
-                    break;
-            }
-            switch (state)
-            {
-                case FieldState.OneStretched:
-                case FieldState.OneStretchedOneAimed:
-                    dottedSegment = null;
-                    break;
-            }
-            switch (state)
-            {
-                case FieldState.OneSelectedOneDown:
-                case FieldState.OneStretchedOneAimed:
-                    points[pointB].State = GamePoint.PointState.Normal;
-                    break;
-            }
+            if (state == FieldState.Free || state == FieldState.OneSelected)
+                return;
+            ClearTargets();
+            points[pointA].State = GamePoint.PointState.Normal;
+            dottedSegment = null;
+            state = FieldState.Free;
+            if (state == FieldState.OneDown || state == FieldState.OneStretched)
+                return;
+            points[pointB].State = GamePoint.PointState.Normal;
         }
 
         public override void OnTouchOutside(int x, int y) => GoToFreeStateFromAnyTouchedState();
