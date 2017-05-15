@@ -61,6 +61,8 @@ namespace Segmentus
 
         void AddSegment(int point1, int point2, int colorID)
         {
+            pointsAlive.Remove(point1);
+            pointsAlive.Remove(point2);
             GamePoint a = points[point1], b = points[point2];
             GameSegment cur = new GameSegment(colorID, (int)b.pivot.X, (int)b.pivot.Y,
                 pivot, (int)a.pivot.X, (int)a.pivot.Y);
