@@ -9,6 +9,7 @@ namespace Segmentus
 
         static RectContent()
         {
+            paint.SetStyle(Paint.Style.Stroke);
             paint.Color = ColorBank.GetColor(ColorBank.Red);
             paint.StrokeWidth = 6 * GameView.scaleFactor;
         }
