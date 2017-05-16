@@ -6,7 +6,7 @@ namespace Segmentus
     class TextContent : DrawablePart
     {
         string text;
-        string Text
+        public string Text
         {
             get { return text; }
             set
