@@ -6,6 +6,7 @@ namespace Segmentus
 {
     class SingleGameLogic
     {
+        const int StartGameDelay = 1300;
         const int BotThinkingDuration = 1000;
         const int BotMovingDuration = 1000;
         public enum GameStatus { Empty, PlayersTurn, BotsTurn, Win, Lose };
@@ -27,9 +28,9 @@ namespace Segmentus
                     List<int> nxtFree = new List<int>(freeSegments);
                     foreach (int excludeID in fieldData.intersectedWith[curID])
                         nxtFree.Remove(excludeID);
-                    GameState nxt = new GameState(fieldData, nxtFree);
+                    next[curID] = new GameState(fieldData, nxtFree);
                     for (int i = 1; i < MaxMoves; ++i)
-                        diagnoses[i] += 1 - nxt.diagnoses[i - 1];
+                        diagnoses[i] += 1 - next[curID].diagnoses[i - 1];
                 }
                 for (int i = 1; i < MaxMoves; ++i)
                     diagnoses[i] /= next.Count();
@@ -94,6 +95,19 @@ namespace Segmentus
             else
                 nextStatus = GameStatus.PlayersTurn;
             DelayAction(() => StatusChanged?.Invoke(nextStatus), BotMovingDuration);
+        }
+
+        public void StartGame()
+        {
+            GameStatus nextStatus;
+            if (random.Next(2) == 0)
+                nextStatus = GameStatus.PlayersTurn;
+            else
+            {
+                nextStatus = GameStatus.BotsTurn;
+                DelayAction(MakeBotMove, StartGameDelay + BotThinkingDuration);
+            }
+            DelayAction(() => StatusChanged?.Invoke(nextStatus), StartGameDelay);
         }
     }
 }
