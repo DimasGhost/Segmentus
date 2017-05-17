@@ -12,7 +12,7 @@ namespace Segmentus
         public enum GameStatus { Empty, PlayersTurn, BotsTurn, Win, Lose };
         class GameState
         {
-            const int MaxMoves = 10;
+            const int MaxMoves = 6;
             public double[] diagnoses = new double[MaxMoves];
             public Dictionary<int, GameState> next = new Dictionary<int, GameState>();
 
@@ -100,7 +100,7 @@ namespace Segmentus
         public void StartGame()
         {
             GameStatus nextStatus;
-            if (random.Next(2) == 0)
+            if (random.Next(500) < 250)
                 nextStatus = GameStatus.PlayersTurn;
             else
             {
@@ -108,6 +108,12 @@ namespace Segmentus
                 DelayAction(MakeBotMove, StartGameDelay + BotThinkingDuration);
             }
             DelayAction(() => StatusChanged?.Invoke(nextStatus), StartGameDelay);
+        }
+
+        public void ClearEvents()
+        {
+            BotMoved = null;
+            StatusChanged = null;
         }
     }
 }

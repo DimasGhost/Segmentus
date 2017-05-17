@@ -26,6 +26,7 @@ namespace Segmentus
             TopBar.Instance = new TopBar();
             ChoiceScene.Instance = new ChoiceScene();
             SingleGameRunupScene.Instance = new SingleGameRunupScene();
+            SingleGameScene.Instance = new SingleGameScene();
         }
 
         void RemoveScenes()
@@ -35,6 +36,7 @@ namespace Segmentus
             TopBar.Instance = null;
             ChoiceScene.Instance = null;
             SingleGameRunupScene.Instance = null;
+            SingleGameScene.Instance = null;
         }
 
         protected override void OnDestroy()

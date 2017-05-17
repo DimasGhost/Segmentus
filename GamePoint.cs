@@ -10,7 +10,7 @@ namespace Segmentus
         const int OutRadius = 30;
         const int InRadius = 20;
         const int CoreRadius = 15;
-        const float GrowthFactor = 1.5f;
+        const float GrowthFactor = 1.3f;
         const int GrowthTime = 500;
         const int BirthDuration = 700;
         const int MaxBirthDelay = 600;
@@ -52,7 +52,7 @@ namespace Segmentus
             set
             {
                 state = value;
-                if (anim != null && anim.core.IsRunning)
+                if (anim != null)
                     anim.core.Cancel();
                 switch (state)
                 {
@@ -64,7 +64,7 @@ namespace Segmentus
                         anim = HandyAnimator.OfFloat(0, GrowthTime, GrowthTime);
                         anim.core.RepeatCount = -1;
                         anim.core.RepeatMode = Android.Animation.ValueAnimatorRepeatMode.Reverse;
-                        anim.core.SetCurrentFraction((float)(0.1 + random.NextDouble() * 0.8));
+                        anim.core.StartDelay = random.Next(GrowthTime);
                         break;
                     default:
                         anim = HandyAnimator.OfFloat(ScaleTime, 0, (int)ScaleTime);

@@ -38,7 +38,7 @@ namespace Segmentus
                 return Dist(s.a, p);
             if (DotProduct(ba, bp) < 0)
                 return Dist(s.b, p);
-            return CrossProduct(ab, ap) / ab.Length();
+            return Math.Abs(CrossProduct(ab, ap) / ab.Length());
         }
 
         public static bool IsIntersected(Segment a, Segment b)

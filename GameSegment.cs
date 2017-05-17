@@ -54,8 +54,10 @@ namespace Segmentus
 
         static GameSegment()
         {
-            int width = (int)(10 * GameView.scaleFactor);
+            int width = (int)(12 * GameView.scaleFactor);
             normalPaint.StrokeWidth = dottedPaint.StrokeWidth = width;
+            normalPaint.SetStyle(Paint.Style.Stroke);
+            dottedPaint.SetStyle(Paint.Style.Stroke);
             int onLen = (int)(30 * GameView.scaleFactor);
             int offLen = (int)(10 * GameView.scaleFactor);
             dottedPaint.SetPathEffect(new DashPathEffect(new float[] { onLen, offLen }, 0));
@@ -83,7 +85,10 @@ namespace Segmentus
             float ay = 0.5f * HeadY * (1 - VisiblePart);
             float bx = 0.5f * HeadX * (1 + VisiblePart);
             float by = 0.5f * HeadY * (1 + VisiblePart);
-            canvas.DrawLine(ax, ay, bx, by, paint);
+            Path p = new Path();
+            p.MoveTo(ax, ay);
+            p.LineTo(bx, by);
+            canvas.DrawPath(p, paint);
         }
     }
 }

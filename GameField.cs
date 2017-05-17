@@ -50,6 +50,11 @@ namespace Segmentus
                 p.AnimateAppearance();
         }
 
+        public void ClearEvents()
+        {
+            PlayerMoved = null;
+        }
+
         public void OnCompetitorsMove(int segID)
         {
             int point1 = fieldData.pointAbySegment[segID];
@@ -64,7 +69,8 @@ namespace Segmentus
             pointsAlive.Remove(point1);
             pointsAlive.Remove(point2);
             GamePoint a = points[point1], b = points[point2];
-            GameSegment cur = new GameSegment(colorID, (int)b.pivot.X, (int)b.pivot.Y,
+            GameSegment cur = new GameSegment(colorID, 
+                (int)(b.pivot.X - a.pivot.X), (int)(b.pivot.Y - a.pivot.Y),
                 pivot, (int)a.pivot.X, (int)a.pivot.Y);
             cur.AnimateAppearance();
             segments.Add(cur);
@@ -94,17 +100,22 @@ namespace Segmentus
             {
                 int segID = fieldData.segmentID[pointID, i];
                 if (availableSegments.Contains(segID))
+                {
                     points[i].State = GamePoint.PointState.Highlighted;
+                    pointsTargeted.Add(i);
+                }
             }
         }
 
-        public override void OnTouchDown(int x, int y)
+        public override void OnTouchDown(int absX, int absY)
         {
+            int x = (int)(absX - pivot.AbsX);
+            int y = (int)(absY - pivot.AbsY);
             int curID = FindAlivePointID(x, y);
             switch (state)
             {
                 case FieldState.Free:
-                    if (curID != -1)
+                    if (curID == -1)
                         break;
                     pointA = curID;
                     points[pointA].State = GamePoint.PointState.Selected;
@@ -136,55 +147,53 @@ namespace Segmentus
             }
         }
 
-        public override void OnTouchMove(int x, int y)
+        public override void OnTouchMove(int absX, int absY)
         {
+            int x = (int)(absX - pivot.AbsX);
+            int y = (int)(absY - pivot.AbsY);
             int curID = FindAlivePointID(x, y);
             switch (state)
             {
                 case FieldState.OneDown:
                     if (curID == pointA)
                         break;
-                    dottedSegment = new GameSegment(ColorBank.Yellow, x, y, pivot, 
+                    dottedSegment = new GameSegment(ColorBank.Yellow, 0, 0, pivot, 
                         (int)points[pointA].pivot.X, (int)points[pointA].pivot.Y);
+                    dottedSegment.Style = GameSegment.SegmentStyle.Dotted;
                     state = FieldState.OneStretched;
-                    OnTouchMove(x, y);
                     break;
                 case FieldState.OneSelectedOneDown:
                     if (curID == pointB)
                         break;
                     points[pointA].State = GamePoint.PointState.Normal;
-                    ClearTargets();
                     pointA = pointB;
+                    points[pointA].State = GamePoint.PointState.Selected;
                     MakeTargets(pointA);
-                    dottedSegment = new GameSegment(ColorBank.Yellow, x, y, pivot,
+                    dottedSegment = new GameSegment(ColorBank.Yellow, 0, 0, pivot,
                         (int)points[pointA].pivot.X, (int)points[pointA].pivot.Y);
+                    dottedSegment.Style = GameSegment.SegmentStyle.Dotted;
                     state = FieldState.OneStretched;
-                    OnTouchMove(x, y);
-                    break;
-                case FieldState.OneStretched:
-                    if (curID == -1 || curID == pointA)
-                    {
-                        dottedSegment.HeadX = x;
-                        dottedSegment.HeadY = y;
-                        break;
-                    }
-                    if (!pointsTargeted.Contains(curID))
-                        break;
-                    pointB = curID;
-                    points[pointB].State = GamePoint.PointState.Selected;
-                    dottedSegment.HeadX = (int)points[pointB].pivot.X;
-                    dottedSegment.HeadY = (int)points[pointB].pivot.Y;
-                    state = FieldState.OneStretchedOneAimed;
                     break;
                 case FieldState.OneStretchedOneAimed:
                     if (curID == pointB)
                         break;
                     points[pointB].State = GamePoint.PointState.Highlighted;
-                    dottedSegment.HeadX = x;
-                    dottedSegment.HeadY = y;
                     state = FieldState.OneStretched;
-                    OnTouchMove(x, y);
                     break;
+            }
+            if (state == FieldState.OneStretched)
+            {
+                if (curID == -1 || curID == pointA || !pointsTargeted.Contains(curID))
+                {
+                    dottedSegment.HeadX = (int)(x - points[pointA].pivot.X);
+                    dottedSegment.HeadY = (int)(y - points[pointA].pivot.Y);
+                    return;
+                }
+                pointB = curID;
+                points[pointB].State = GamePoint.PointState.Selected;
+                dottedSegment.HeadX = (int)(points[pointB].pivot.X - points[pointA].pivot.X);
+                dottedSegment.HeadY = (int)(points[pointB].pivot.Y - points[pointA].pivot.Y);
+                state = FieldState.OneStretchedOneAimed;
             }
         }
 
@@ -192,9 +201,9 @@ namespace Segmentus
         {
             points[pointA].State = GamePoint.PointState.UsedByPlayer;
             points[pointB].State = GamePoint.PointState.UsedByPlayer;
+            state = FieldState.Free;
             AddSegment(pointA, pointB, ColorBank.Yellow);
             PlayerMoved?.Invoke(fieldData.segmentID[pointA, pointB]);
-            state = FieldState.Free;
         }
 
         public override void OnTouchUp(int x, int y)

@@ -5,13 +5,41 @@ namespace Segmentus.Scenes
     class SingleGameRunupScene : Scene
     {
         public static SingleGameRunupScene Instance;
+        enum SceneState { Empty, Processing, Ready };
 
         LoadingIndicator loading;
-        Button easyButton, normalButton, hardButton, backButton;
+        TextContent processingText;
+        Button easyButton, normalButton, hardButton, backButton, startButton;
         HLineSwitch lineSwitch;
+
+        GenerateSingleGameLogicTask task;
+        SingleGameLogic logic;
+
+        SceneState state;
 
         public SingleGameRunupScene() : base()
         {
+            int rw = (int)(170 * GameView.scaleFactor);
+            int rh = (int)(80 * GameView.scaleFactor);
+            Rect r = new Rect(-rw, -rh, rw, rh);
+            RectContent rect = new RectContent(r);
+            TextContent startText = new TextContent("START", ColorBank.Red,
+                70 * GameView.scaleFactor, null);
+            ComplexContent startCC = new ComplexContent(null);
+            startCC.contents.Add(rect);
+            startCC.contents.Add(startText);
+            startButton = new Button(startCC, r, pivot);
+            startButton.Pressed += () =>
+            {
+                SingleGameLogic.botDepth = lineSwitch.CurrentState;
+                SingleGameScene.Instance.InitGame(logic);
+                SingleGameScene.Instance.Show(Side.Right);
+                Hide(Side.Left);
+            };
+
+            processingText = new TextContent("PROCESSING...", ColorBank.Red,
+                50 * GameView.scaleFactor, pivot, 0, -250 * GameView.scaleFactor);
+
             loading = new LoadingIndicator((int)(100 * GameView.scaleFactor), pivot, 0, 0);
 
             easyButton = CreateDifficultyButton(Resource.Drawable.brain_easy, "EASY",
@@ -60,6 +88,16 @@ namespace Segmentus.Scenes
             return new Button(cc, bounds, pivot, x, y);
         }
 
+        void OnTaskFinished(SingleGameLogic logic)
+        {
+            this.logic = logic;
+            task = null;
+            startButton.Activate();
+            loading.Stop();
+            state = SceneState.Ready;
+            OnAppearanceChanged();
+        }
+
         protected override void BeforeShow()
         {
             base.BeforeShow();
@@ -68,6 +106,9 @@ namespace Segmentus.Scenes
             hardButton.Activate();
             backButton.Activate();
             loading.Start();
+            state = SceneState.Processing;
+            task = new GenerateSingleGameLogicTask(OnTaskFinished);
+            task.Execute();
         }
 
         protected override void BeforeHide()
@@ -77,12 +118,25 @@ namespace Segmentus.Scenes
             normalButton.Deactivate();
             hardButton.Deactivate();
             backButton.Deactivate();
+            if (state == SceneState.Processing)
+            {
+                loading.Stop();
+                task.Cancel(true);
+                task = null;
+                state = SceneState.Empty;
+            }
+            else
+            {
+                startButton.Deactivate();
+                logic = null;
+            }
         }
 
         protected override void AfterHide()
         {
             base.AfterHide();
-            loading.Stop();
+            if (state == SceneState.Ready)
+                state = SceneState.Empty;
         }
 
         protected override void Draw(Canvas canvas)
@@ -90,9 +144,15 @@ namespace Segmentus.Scenes
             easyButton.OnDraw(canvas);
             normalButton.OnDraw(canvas);
             hardButton.OnDraw(canvas);
-            loading.OnDraw(canvas);
             lineSwitch.OnDraw(canvas);
             backButton.OnDraw(canvas);
+            if (state == SceneState.Processing)
+            {
+                processingText.OnDraw(canvas);
+                loading.OnDraw(canvas);
+            }
+            if (state == SceneState.Ready)
+                startButton.OnDraw(canvas);
         }
     }
 }

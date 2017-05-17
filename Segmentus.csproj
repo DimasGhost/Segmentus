@@ -59,6 +59,7 @@
     <Compile Include="DrawablePart.cs" />
     <Compile Include="FieldData.cs" />
     <Compile Include="FieldDataGenerator.cs" />
+    <Compile Include="GameButtonBar.cs" />
     <Compile Include="GameField.cs" />
     <Compile Include="GamePoint.cs" />
     <Compile Include="GameView.cs" />
@@ -76,8 +77,10 @@
     <Compile Include="Scenes\LogoScene.cs" />
     <Compile Include="Scenes\MenuScene.cs" />
     <Compile Include="Scenes\SingleGameRunupScene.cs" />
+    <Compile Include="Scenes\SingleGameScene.cs" />
     <Compile Include="Scenes\TopBar.cs" />
     <Compile Include="GameSegment.cs" />
+    <Compile Include="RectContent.cs" />
     <Compile Include="SingleGameLogic.cs" />
     <Compile Include="SwitchButton.cs" />
     <Compile Include="TaskRegistrator.cs" />
@@ -151,6 +154,15 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\brain_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\replay.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -35,7 +35,9 @@ namespace Segmentus
                             correct &= Geom.Dist(cur, points[k]) >= MinSegmentDist;
                     if (!correct)
                         continue;
-                    segments[segmentID[i, j] = segmentID[j, i] = segmentsCnt++] = cur;
+                    int segID = segmentsCnt++;
+                    segmentID[i, j] = segmentID[j, i] = segID;
+                    segments[segID] = cur;
                 }
             Array.Resize(ref segments, segmentsCnt);
             intersectedWith = new int[segmentsCnt][];
