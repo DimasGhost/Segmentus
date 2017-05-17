@@ -13,6 +13,7 @@ namespace Segmentus
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
+            SoundMaster.LoadSounds();
             InitScenes();
             HandyAnimator delayAnim = HandyAnimator.OfNothing(500);
             delayAnim.After += () => LogoScene.Instance.Show(Side.Right);
@@ -45,6 +46,7 @@ namespace Segmentus
             TaskRegistrator.CancelAllTasks();
             TouchHandler.RemoveAllListeners();
             HandyAnimator.OnActivityDestroy();
+            SoundMaster.UnloadSounds();
             RemoveScenes();
             GameView.Instance = null;
             GC.Collect();
