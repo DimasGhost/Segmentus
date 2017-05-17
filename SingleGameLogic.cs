@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using System;
+using Android.Util;
 
 namespace Segmentus
 {
@@ -9,47 +9,70 @@ namespace Segmentus
         const int StartGameDelay = 1300;
         const int BotThinkingDuration = 1000;
         const int BotMovingDuration = 1000;
-        public enum GameStatus { Empty, PlayersTurn, BotsTurn, Win, Lose };
-        class GameState
-        {
-            const int MaxMoves = 6;
-            public double[] diagnoses = new double[MaxMoves];
-            public Dictionary<int, GameState> next = new Dictionary<int, GameState>();
 
-            public GameState(FieldData fieldData, List<int> freeSegments)
-            {
-                diagnoses[0] = 0.5;
-                for (int i = 1; i < MaxMoves; ++i)
-                    diagnoses[i] = 0;
-                if (freeSegments.Count == 0)
-                    return;
-                foreach (int curID in freeSegments)
-                {
-                    List<int> nxtFree = new List<int>(freeSegments);
-                    foreach (int excludeID in fieldData.intersectedWith[curID])
-                        nxtFree.Remove(excludeID);
-                    next[curID] = new GameState(fieldData, nxtFree);
-                    for (int i = 1; i < MaxMoves; ++i)
-                        diagnoses[i] += 1 - next[curID].diagnoses[i - 1];
-                }
-                for (int i = 1; i < MaxMoves; ++i)
-                    diagnoses[i] /= next.Count();
-            }
-        }
+        public enum GameStatus { Empty, PlayersTurn, BotsTurn, Win, Lose };
+
+        const int MaxBotDepth = 4;
+        Dictionary<Bitmask128, float[]> statePredictions = 
+            new Dictionary<Bitmask128, float[]>();
+        Bitmask128 curStateMask;
+        Bitmask128[] segmentProhibitMask;
 
         public static int botDepth;
         static Random random = new Random();
 
         public FieldData fieldData;
-        GameState curState;
         public event Action<GameStatus> StatusChanged;
         public event Action<int> BotMoved;
+
+        int cnt = 0;
+
+        float[] MakeStatePredictions(Bitmask128 mask)
+        {
+            ++cnt;
+            if (cnt % 1000 == 0)
+                Log.Info("kek", cnt.ToString());
+            float[] curPred = statePredictions[mask] = new float[MaxBotDepth + 1];
+            curPred[0] = 0.5f;
+            for (int i = 1; i <= MaxBotDepth; ++i)
+                curPred[i] = 0;
+            int c = 0;
+            for (int i = 0; i < fieldData.segmentsCnt; ++i)
+            {
+                if (!mask[i])
+                    continue;
+                ++c;
+                Bitmask128 nxt = mask & segmentProhibitMask[i];
+                float[] nxtPred;
+                if (!statePredictions.ContainsKey(nxt))
+                    nxtPred = MakeStatePredictions(nxt);
+                else
+                    nxtPred = statePredictions[nxt];
+                for (int j = 1; j <= MaxBotDepth; ++j)
+                    curPred[j] += 1 - nxtPred[j - 1];
+            }
+            for (int i = 1; i <= MaxBotDepth; ++i)
+                curPred[i] /= c;
+            return curPred;
+        }
 
         public SingleGameLogic()
         {
             fieldData = FieldDataGenerator.Generate();
-            curState = new GameState(fieldData,
-                new List<int>(Enumerable.Range(0, fieldData.segmentsCnt)));
+            curStateMask = new Bitmask128(fieldData.segmentsCnt);
+            segmentProhibitMask = new Bitmask128[fieldData.segmentsCnt];
+            for (int i = 0; i < fieldData.segmentsCnt; ++i)
+            {
+                segmentProhibitMask[i] = curStateMask;
+                foreach (int badSegID in fieldData.intersectedWith[i])
+                    segmentProhibitMask[i][badSegID] = false;
+            }
+            statePredictions[Bitmask128.Zero] = new float[MaxBotDepth + 1];
+            statePredictions[Bitmask128.Zero][0] = 0.5f;
+            for (int i = 1; i <= MaxBotDepth; ++i)
+                statePredictions[Bitmask128.Zero][i] = 0;
+            Log.Info("kek", "start");
+            MakeStatePredictions(curStateMask);
         }
 
         void DelayAction(Action action, int duration)
@@ -61,8 +84,8 @@ namespace Segmentus
 
         public void OnPlayersMove(int segID)
         {
-            curState = curState.next[segID];
-            if (curState.next.Count == 0)
+            curStateMask &= segmentProhibitMask[segID];
+            if (curStateMask.Equals(Bitmask128.Zero))
             {
                 StatusChanged?.Invoke(GameStatus.Win);
                 return;
@@ -73,24 +96,27 @@ namespace Segmentus
 
         void MakeBotMove()
         {
-            double minProb = 2;
+            float minProb = 2;
             List<int> segIDs = new List<int>();
-            foreach (int segID in curState.next.Keys)
+            for (int i = 0; i < fieldData.segmentsCnt; ++i)
             {
-                double curProb = curState.next[segID].diagnoses[botDepth];
+                if (!curStateMask[i])
+                    continue;
+                Bitmask128 nxt = curStateMask & segmentProhibitMask[i];
+                float curProb = statePredictions[nxt][botDepth];
                 if (curProb < minProb)
                 {
                     segIDs.Clear();
                     minProb = curProb;
                 }
-                if (Math.Abs(curProb - minProb) < double.Epsilon)
-                    segIDs.Add(segID);
+                if (Math.Abs(curProb - minProb) < float.Epsilon)
+                    segIDs.Add(i);
             }
             int chosenSegID = segIDs[random.Next(segIDs.Count)];
             BotMoved?.Invoke(chosenSegID);
-            curState = curState.next[chosenSegID];
+            curStateMask &= segmentProhibitMask[chosenSegID];
             GameStatus nextStatus;
-            if (curState.next.Count == 0)
+            if (curStateMask.Equals(Bitmask128.Zero))
                 nextStatus = GameStatus.Lose;
             else
                 nextStatus = GameStatus.PlayersTurn;

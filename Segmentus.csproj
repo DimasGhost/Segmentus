@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="BitmapContent.cs" />
     <Compile Include="BitmapLoader.cs" />
+    <Compile Include="Bitmask128.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="ColorBank.cs" />
     <Compile Include="ComplexContent.cs" />

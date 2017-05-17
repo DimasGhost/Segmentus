@@ -31,7 +31,7 @@ namespace Segmentus.Scenes
             startButton = new Button(startCC, r, pivot);
             startButton.Pressed += () =>
             {
-                SingleGameLogic.botDepth = lineSwitch.CurrentState;
+                SingleGameLogic.botDepth = lineSwitch.CurrentState * 2;
                 SingleGameScene.Instance.InitGame(logic);
                 SingleGameScene.Instance.Show(Side.Right);
                 Hide(Side.Left);

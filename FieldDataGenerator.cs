@@ -8,7 +8,7 @@ namespace Segmentus
 
         const int Width = 600;
         const int Height = 700;
-        const int N = 10;
+        const int N = 16;
         const int MinPointDist = 150;
         //For annealing:
         const int Iterations = 1000;
