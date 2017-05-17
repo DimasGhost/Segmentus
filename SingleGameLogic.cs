@@ -25,13 +25,8 @@ namespace Segmentus
         public event Action<GameStatus> StatusChanged;
         public event Action<int> BotMoved;
 
-        int cnt = 0;
-
         float[] MakeStatePredictions(Bitmask128 mask)
         {
-            ++cnt;
-            if (cnt % 1000 == 0)
-                Log.Info("kek", cnt.ToString());
             float[] curPred = statePredictions[mask] = new float[MaxBotDepth + 1];
             curPred[0] = 0.5f;
             for (int i = 1; i <= MaxBotDepth; ++i)
@@ -71,7 +66,6 @@ namespace Segmentus
             statePredictions[Bitmask128.Zero][0] = 0.5f;
             for (int i = 1; i <= MaxBotDepth; ++i)
                 statePredictions[Bitmask128.Zero][i] = 0;
-            Log.Info("kek", "start");
             MakeStatePredictions(curStateMask);
         }
 
