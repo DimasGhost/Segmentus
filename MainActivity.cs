@@ -28,6 +28,7 @@ namespace Segmentus
             ChoiceScene.Instance = new ChoiceScene();
             SingleGameRunupScene.Instance = new SingleGameRunupScene();
             SingleGameScene.Instance = new SingleGameScene();
+            HelpScene.Instance = new HelpScene();
         }
 
         void RemoveScenes()
@@ -38,6 +39,7 @@ namespace Segmentus
             ChoiceScene.Instance = null;
             SingleGameRunupScene.Instance = null;
             SingleGameScene.Instance = null;
+            HelpScene.Instance = null;
         }
 
         protected override void OnDestroy()
