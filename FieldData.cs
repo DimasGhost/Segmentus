@@ -5,7 +5,7 @@ namespace Segmentus
     class FieldData
     {
         public const int InvalidSegmentID = -1;
-        const int MinSegmentDist = 60;
+        const int MinSegmentDist = 50;
 
         public int pointsCnt, segmentsCnt;
         public Geom.Point[] points;
