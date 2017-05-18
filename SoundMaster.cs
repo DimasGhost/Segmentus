@@ -17,7 +17,7 @@ namespace Segmentus
         static public int VictorySound;
         static public int SceneSwitchSound;
 
-        static int lastStream = 0;
+        static int lastStream;
         static float volume;
         public static float Volume
         {
@@ -45,7 +45,7 @@ namespace Segmentus
             editor.PutFloat("volume", volume);
             editor.Commit();
             for (int i = 0; i < MaxStreams; ++i)
-                soundPool.SetVolume(i, volume, volume);
+                soundPool.SetVolume(lastStream - i, volume, volume);
         }
 
         public static void LoadSounds()
@@ -62,7 +62,7 @@ namespace Segmentus
 
         public static void PlaySound(int soundID)
         {
-            soundPool.Play(soundID, Volume, Volume, 0, 0, 1);
+            lastStream = soundPool.Play(soundID, Volume, Volume, 0, 0, 1);
         }
 
         public static void StopAllSounds()

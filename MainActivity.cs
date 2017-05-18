@@ -48,6 +48,7 @@ namespace Segmentus
             TaskRegistrator.CancelAllTasks();
             TouchHandler.RemoveAllListeners();
             HandyAnimator.OnActivityDestroy();
+            SoundMaster.StopAllSounds();
             SoundMaster.UnloadSounds();
             RemoveScenes();
             GameView.Instance = null;

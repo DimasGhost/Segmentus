@@ -37,6 +37,11 @@ namespace Segmentus.Scenes
 
             helpButton = CreateHexagonButton((int)(190 * GameView.scaleFactor),
                 Resource.Drawable.menu_help, 0, 410 * GameView.scaleFactor);
+            helpButton.Pressed += () =>
+            {
+                HelpScene.Instance.Show(Side.Right);
+                Hide(Side.Left);
+            };
         }
 
         Button CreateHexagonButton(int size, int id, float x, float y)
