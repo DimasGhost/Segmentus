@@ -6,7 +6,8 @@ using Segmentus.Scenes;
 namespace Segmentus
 {
     [Activity(Label = "Segmentus", MainLauncher = true, Icon = "@drawable/icon",
-        Theme = "@android:style/Theme.Black.NoTitleBar.Fullscreen")]
+        Theme = "@android:style/Theme.Black.NoTitleBar.Fullscreen",
+        ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class MainActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)
