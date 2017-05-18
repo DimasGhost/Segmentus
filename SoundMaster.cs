@@ -19,18 +19,26 @@ namespace Segmentus
 
         static int lastStream = 0;
         static float volume;
+        public static float Volume
+        {
+            get { return volume; }
+            private set
+            {
+                volume = value;
+            }
+        }
 
         static SoundMaster()
         {
             soundPool = new SoundPool(MaxStreams, Stream.Music, 0);
             var prefs = Application.Context.GetSharedPreferences("AppPrefs", 
                 FileCreationMode.Private);
-            volume = prefs.GetFloat("volume", 1);
+            Volume = prefs.GetFloat("volume", 1);
         }
 
         public static void SetVolume(float volume)
         {
-            SoundMaster.volume = volume;
+            SoundMaster.Volume = volume;
             var prefs = Application.Context.GetSharedPreferences("AppPrefs",
                 FileCreationMode.Private);
             var editor = prefs.Edit();
@@ -54,7 +62,7 @@ namespace Segmentus
 
         public static void PlaySound(int soundID)
         {
-            soundPool.Play(soundID, volume, volume, 0, 0, 1);
+            soundPool.Play(soundID, Volume, Volume, 0, 0, 1);
         }
 
         public static void StopAllSounds()

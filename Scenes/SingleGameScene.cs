@@ -52,6 +52,7 @@ namespace Segmentus.Scenes
                 statusText.Text = "YOU LOSE";
                 statusText.ColorID = ColorBank.Blue;
                 bar.OnGameEnd();
+                SoundMaster.PlaySound(SoundMaster.FailureSound);
             }
             if (status == SingleGameLogic.GameStatus.Win)
             {
@@ -59,6 +60,7 @@ namespace Segmentus.Scenes
                 statusText.Text = "YOU WIN";
                 statusText.ColorID = ColorBank.Yellow;
                 bar.OnGameEnd();
+                SoundMaster.PlaySound(SoundMaster.VictorySound);
             }
         }
 

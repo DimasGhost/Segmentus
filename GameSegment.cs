@@ -76,6 +76,7 @@ namespace Segmentus
             HandyAnimator anim = HandyAnimator.OfFloat(0, 1, AppearanceDuration);
             anim.Update += (value) => VisiblePart = (float)(value);
             anim.core.Start();
+            SoundMaster.PlaySound(SoundMaster.SegmentBornSound);
         }
 
         protected override void Draw(Canvas canvas)

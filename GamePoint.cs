@@ -13,7 +13,7 @@ namespace Segmentus
         const float GrowthFactor = 1.3f;
         const int GrowthTime = 500;
         const int BirthDuration = 700;
-        const int MaxBirthDelay = 600;
+        const int MaxBirthDelay = 800;
 
         public enum PointState {Normal, Selected, Highlighted,
             UsedByPlayer, UsedByCompetitor};
@@ -59,6 +59,7 @@ namespace Segmentus
                     case PointState.Selected:
                         anim = HandyAnimator.OfFloat(ScaleTime, GrowthTime,
                             (int)(GrowthTime - ScaleTime));
+                        SoundMaster.PlaySound(SoundMaster.PointChosenSound);
                         break;
                     case PointState.Highlighted:
                         anim = HandyAnimator.OfFloat(0, GrowthTime, GrowthTime);
@@ -88,6 +89,8 @@ namespace Segmentus
             apAnim.core.SetInterpolator(new OvershootInterpolator(2));
             apAnim.core.StartDelay = (int)(random.NextDouble() * MaxBirthDelay);
             apAnim.Update += (value) => BirthScaleFactor = (float)value;
+            apAnim.core.AnimationStart += (sender, e) 
+                => SoundMaster.PlaySound(SoundMaster.PointBornSound);
             apAnim.core.Start();
         }
 

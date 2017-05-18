@@ -117,8 +117,8 @@ namespace Segmentus
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050000
-			public const int gameView = 2131034112;
+			// aapt resource value: 0x7f060000
+			public const int gameView = 2131099648;
 			
 			static Id()
 			{
@@ -146,14 +146,48 @@ namespace Segmentus
 			}
 		}
 		
+		public partial class Raw
+		{
+			
+			// aapt resource value: 0x7f040000
+			public const int button = 2130968576;
+			
+			// aapt resource value: 0x7f040001
+			public const int failure = 2130968577;
+			
+			// aapt resource value: 0x7f040002
+			public const int point_born = 2130968578;
+			
+			// aapt resource value: 0x7f040003
+			public const int point_chosen = 2130968579;
+			
+			// aapt resource value: 0x7f040004
+			public const int scene_switch = 2130968580;
+			
+			// aapt resource value: 0x7f040005
+			public const int segment_born = 2130968581;
+			
+			// aapt resource value: 0x7f040006
+			public const int victory = 2130968582;
+			
+			static Raw()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Raw()
+			{
+			}
+		}
+		
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040001
-			public const int ApplicationName = 2130968577;
+			// aapt resource value: 0x7f050001
+			public const int ApplicationName = 2131034113;
 			
-			// aapt resource value: 0x7f040000
-			public const int Hello = 2130968576;
+			// aapt resource value: 0x7f050000
+			public const int Hello = 2131034112;
 			
 			static String()
 			{

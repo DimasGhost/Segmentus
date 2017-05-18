@@ -25,6 +25,7 @@ namespace Segmentus
             ReleaseAnimation();
             BeforeShow();
             AnimateSwitch(pivot.X, 0, AfterShow);
+            SoundMaster.PlaySound(SoundMaster.SceneSwitchSound);
         }
 
         protected void Hide(Side toSide)

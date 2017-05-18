@@ -47,6 +47,7 @@ namespace Segmentus
             {
                 disturbed = false;
                 AnimateDivingTo(0);
+                SoundMaster.PlaySound(SoundMaster.ButtonSound);
                 Pressed?.Invoke();
             }
         }
