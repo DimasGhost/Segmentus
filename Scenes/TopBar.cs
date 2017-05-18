@@ -17,13 +17,14 @@ namespace Segmentus.Scenes
             vSize = (int)(size / 1.5);
             float x = 360 * GameView.scaleFactor - vSize;
             float y = -640 * GameView.scaleFactor + vSize;
-            Bitmap daymodeBitmap = 
-                BitmapLoader.LoadAndResize(Resource.Drawable.top_daymode, size, size);
             Bitmap nightmodeBitmap =
                 BitmapLoader.LoadAndResize(Resource.Drawable.top_nightmode, size, size);
-            BitmapContent daymode = new BitmapContent(daymodeBitmap, null);
+            Bitmap daymodeBitmap = 
+                BitmapLoader.LoadAndResize(Resource.Drawable.top_daymode, size, size);
             BitmapContent nightmode = new BitmapContent(nightmodeBitmap, null);
-            dayNightSwitch = new SwitchButton(1, new DrawablePart[] { daymode, nightmode },
+            BitmapContent daymode = new BitmapContent(daymodeBitmap, null);
+            int s = (ColorBank.CurrentBgCoef < 0.5) ? 0 : 1;
+            dayNightSwitch = new SwitchButton(s, new DrawablePart[] { nightmode, daymode },
                 bounds, pivot, x, y);
 
             dayNightSwitch.StateChanged += (state) => ColorBank.ChangeBackgroundColor(state == 0);

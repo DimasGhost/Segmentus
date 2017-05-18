@@ -1,3 +1,5 @@
+using Android.App;
+using Android.Content;
 using Android.Graphics;
 using Android.Views.Animations;
 using System;
@@ -28,10 +30,10 @@ namespace Segmentus
 
         const int BgAnimDuration = 500;
         static float currentBgCoef;
-        static float CurrentBgCoef
+        public static float CurrentBgCoef
         {
             get { return currentBgCoef; }
-            set
+            private set
             {
                 currentBgCoef = value;
                 byte wr = colors[White].R, br = colors[Black].R;
@@ -48,12 +50,20 @@ namespace Segmentus
 
         static ColorBank()
         {
-            CurrentBgCoef = 1;
+            var prefs = Application.Context.GetSharedPreferences("AppPrefs",
+                FileCreationMode.Private);
+            CurrentBgCoef = prefs.GetFloat("background", 1);
         }
 
         static public void ChangeBackgroundColor(bool toBlack)
         {
             float coefDest = (toBlack) ? 0 : 1;
+            var prefs = Application.Context.GetSharedPreferences("AppPrefs",
+                FileCreationMode.Private);
+            var editor = prefs.Edit();
+            editor.PutFloat("background", coefDest);
+            editor.Commit();
+
             bgAnim?.core.Cancel();
             bgAnim = HandyAnimator.OfFloat(currentBgCoef, coefDest,
                 (int)(Math.Abs(currentBgCoef - coefDest) * BgAnimDuration));

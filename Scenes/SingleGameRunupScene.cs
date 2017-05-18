@@ -31,7 +31,6 @@ namespace Segmentus.Scenes
             startButton = new Button(startCC, r, pivot);
             startButton.Pressed += () =>
             {
-                SingleGameLogic.botDepth = lineSwitch.CurrentState * 2;
                 SingleGameScene.Instance.InitGame(logic);
                 SingleGameScene.Instance.Show(Side.Right);
                 Hide(Side.Left);
@@ -44,18 +43,31 @@ namespace Segmentus.Scenes
 
             easyButton = CreateDifficultyButton(Resource.Drawable.brain_easy, "EASY",
                 -240 * GameView.scaleFactor, 300 * GameView.scaleFactor);
-            easyButton.Pressed += () => lineSwitch.CurrentState = 0;
+            easyButton.Pressed += () => 
+            {
+                lineSwitch.CurrentState = 0;
+                SingleGameLogic.BotDepth = 0;
+            };
 
             normalButton = CreateDifficultyButton(Resource.Drawable.brain_normal, "NORMAL",
                 0 * GameView.scaleFactor, 300 * GameView.scaleFactor);
-            normalButton.Pressed += () => lineSwitch.CurrentState = 1;
+            normalButton.Pressed += () =>
+            {
+                lineSwitch.CurrentState = 1;
+                SingleGameLogic.BotDepth = 2;
+            };
 
             hardButton = CreateDifficultyButton(Resource.Drawable.brain_hard, "HARD",
                 240 * GameView.scaleFactor, 300 * GameView.scaleFactor);
-            hardButton.Pressed += () => lineSwitch.CurrentState = 2;
+            hardButton.Pressed += () =>
+            {
+                lineSwitch.CurrentState = 2;
+                SingleGameLogic.BotDepth = 4;
+            };
 
             lineSwitch = new HLineSwitch((int)(720 * GameView.scaleFactor),
-                (int)(200 * GameView.scaleFactor), 3, 1, pivot, 0, 460 * GameView.scaleFactor);
+                (int)(200 * GameView.scaleFactor), 3, SingleGameLogic.BotDepth / 2, 
+                pivot, 0, 460 * GameView.scaleFactor);
 
             int size = (int)(90 * GameView.scaleFactor);
             Bitmap backBitmap = BitmapLoader.LoadAndResize(Resource.Drawable.back,

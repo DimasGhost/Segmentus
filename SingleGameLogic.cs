@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System;
-using Android.Util;
+using Android.App;
+using Android.Content;
 
 namespace Segmentus
 {
@@ -18,7 +19,20 @@ namespace Segmentus
         Bitmask128 curStateMask;
         Bitmask128[] segmentProhibitMask;
 
-        public static int botDepth;
+        static int botDepth;
+        public static int BotDepth
+        {
+            get { return botDepth; }
+            set
+            {
+                botDepth = value;
+                var prefs = Application.Context.GetSharedPreferences("AppPrefs",
+                    FileCreationMode.Private);
+                var editor = prefs.Edit();
+                editor.PutInt("BotDepth", value);
+                editor.Commit();
+            }
+        }
         static Random random = new Random();
 
         public FieldData fieldData;
@@ -49,6 +63,13 @@ namespace Segmentus
             for (int i = 1; i <= MaxBotDepth; ++i)
                 curPred[i] /= c;
             return curPred;
+        }
+
+        static SingleGameLogic()
+        {
+            var prefs = Application.Context.GetSharedPreferences("AppPrefs",
+                FileCreationMode.Private);
+            botDepth = prefs.GetInt("BotDepth", 2);
         }
 
         public SingleGameLogic()
@@ -97,7 +118,7 @@ namespace Segmentus
                 if (!curStateMask[i])
                     continue;
                 Bitmask128 nxt = curStateMask & segmentProhibitMask[i];
-                float curProb = statePredictions[nxt][botDepth];
+                float curProb = statePredictions[nxt][BotDepth];
                 if (curProb < minProb)
                 {
                     segIDs.Clear();
